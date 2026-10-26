@@ -1,5 +1,5 @@
 <style>
-/* Direction : la cadence. Bandeaux bleu nuit et blanc cassé, typographie Outfit très grande, le pas orange du « k » comme seul motif animé. Un seul look, assumé, sans mode sombre. */
+/* Direction : la cadence. Bandeaux bleu nuit et blanc cassé, typographie Outfit très grande. Le « k » qui avance d’un pas est le seul élément animé ; le dégradé orange, rose, indigo vit uniquement dans le k et dans le film. Pas d’étiquettes en majuscules, pas de flèches décoratives, pas d’apparitions au défilement. */
 :root {
   --k-stem: #13294B; --k-leg: #E8601C;
   --navy: #13294B;
@@ -34,22 +34,15 @@ img { max-width: 100%; }
 .navy { background: var(--navy); color: var(--on-navy); }
 .deep { background: var(--navy-deep); color: var(--on-navy); }
 .white { background: var(--white); }
-.label { font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--orange); display: inline-flex; align-items: center; gap: 10px; }
-.label::before { content: ""; width: 18px; height: 3px; background: currentColor; transform: skewX(-38deg); }
-.navy .label, .deep .label { color: var(--orange-hot); }
 .display { font-size: clamp(40px, 7vw, 92px); font-weight: 600; letter-spacing: -.03em; line-height: 1; }
 .h2 { font-size: clamp(32px, 4.8vw, 60px); letter-spacing: -.025em; }
 .lead { font-size: clamp(18px, 1.9vw, 22px); line-height: 1.5; color: var(--muted); max-width: 58ch; }
 .navy .lead, .deep .lead { color: var(--on-navy-muted); }
-.accent { color: var(--orange); }
-.navy .accent, .deep .accent { color: var(--orange-hot); }
 .stack { display: grid; gap: 20px; }
 
 /* Boutons */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 54px; padding: 0 28px; border-radius: 999px; background: var(--orange); color: var(--white); font: 600 16px/1 var(--font); text-decoration: none; border: 0; cursor: pointer; transition: background .2s, transform .2s var(--ease); white-space: nowrap; }
-.btn:hover { background: #D1531A; transform: translateY(-2px); }
-.btn .arr { transition: transform .25s var(--ease); }
-.btn:hover .arr { transform: translateX(4px); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 54px; padding: 0 28px; border-radius: 999px; background: var(--orange); color: var(--white); font: 600 16px/1 var(--font); text-decoration: none; border: 0; cursor: pointer; transition: background .2s; white-space: nowrap; }
+.btn:hover { background: #C9511A; }
 .btn.line { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
 .btn.line:hover { background: rgba(255,255,255,.08); }
 .white .btn.line:hover, .paper .btn.line:hover { background: rgba(19,41,75,.06); }
@@ -95,11 +88,7 @@ img { max-width: 100%; }
 /* Accueil : héros */
 .hero { position: relative; overflow: hidden; overflow: clip; padding-block: clamp(56px, 9vw, 120px) clamp(56px, 8vw, 104px); }
 .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 40px; align-items: center; }
-.hero h1 { font-size: clamp(48px, 9vw, 128px); font-weight: 600; letter-spacing: -.04em; line-height: .96; }
-.hero h1 .rot { display: inline-grid; color: var(--orange-hot); }
-.hero h1 .rot span { grid-area: 1 / 1; transition: transform .6s var(--ease), opacity .45s; }
-.hero h1 .rot span:not(.cur) { opacity: 0; transform: translateY(.35em); }
-.hero h1 .rot span.out { opacity: 0; transform: translateY(-.35em); }
+.hero h1 { font-size: clamp(44px, 7.4vw, 104px); font-weight: 600; letter-spacing: -.035em; line-height: .98; max-width: 11ch; }
 .hero .intro { display: grid; gap: 28px; margin-top: 32px; max-width: 560px; }
 .hero .intro p { font-size: clamp(18px, 2vw, 21px); color: var(--on-navy-muted); }
 .cadence { width: 100%; max-width: 420px; justify-self: end; aspect-ratio: 1; }
@@ -111,70 +100,44 @@ img { max-width: 100%; }
 @keyframes step { 0%, 18% { transform: translateX(-10px); } 40%, 100% { transform: translateX(0); } }
 @keyframes hop { 0%, 14% { transform: translate(-10px, 0); } 28% { transform: translate(-4px, -9px); } 42%, 100% { transform: translate(0, 0); } }
 @media (prefers-reduced-motion: reduce) { .cadence .g-leg, .cadence .g-dot { animation: none; } }
-.hero .facts { margin-top: clamp(48px, 7vw, 88px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--on-navy-line); }
-.hero .facts div { padding: 22px 20px 0 0; display: grid; gap: 4px; }
-.hero .facts div + div { padding-left: 20px; border-left: 1px solid var(--on-navy-line); }
-.hero .facts b { font-size: 18px; font-weight: 600; }
-.hero .facts span { color: var(--on-navy-muted); font-size: 15px; }
 @media (max-width: 860px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .cadence { position: absolute; right: -42%; top: 2%; width: 80%; max-width: none; opacity: .16; z-index: -1; }
-  .hero .facts { grid-template-columns: 1fr; }
-  .hero .facts div, .hero .facts div + div { padding: 16px 0; border-left: 0; border-bottom: 1px solid var(--on-navy-line); }
 }
 
-/* Bandeau défilant */
-.ticker { background: var(--orange); color: var(--white); overflow: hidden; overflow: clip; padding-block: 18px; }
-.ticker .track { display: flex; width: max-content; animation: tick 38s linear infinite; }
-.ticker ul { list-style: none; padding: 0; display: flex; gap: 0; }
-.ticker li { font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; display: flex; align-items: center; }
-.ticker li::after { content: ""; width: 14px; height: 4px; background: var(--navy); margin: 0 28px; transform: skewX(-38deg); }
-@keyframes tick { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .ticker .track { animation: none; } }
-
 /* Manifeste */
-.manifest { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
-.manifest .words { font-size: clamp(56px, 10vw, 148px); font-weight: 600; letter-spacing: -.045em; line-height: .92; display: grid; }
-.manifest .words span:nth-child(2) { padding-left: .5em; }
-.manifest .words span:nth-child(3) { padding-left: 1em; color: var(--orange); }
-.manifest .text { display: grid; gap: 20px; font-size: clamp(19px, 2vw, 23px); line-height: 1.45; padding-bottom: 12px; }
-.manifest .text p + p { color: var(--muted); }
+.manifest { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
+.manifest h2 { font-size: clamp(34px, 4.6vw, 60px); letter-spacing: -.03em; line-height: 1.05; }
+.manifest p { font-size: clamp(18px, 1.8vw, 21px); line-height: 1.5; color: var(--muted); padding-bottom: 6px; }
 @media (max-width: 820px) { .manifest { grid-template-columns: 1fr; } }
 
 /* Métiers : grandes lignes */
 .svc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(36px, 5vw, 64px); }
 .svc-list { list-style: none; padding: 0; border-top: 1px solid var(--line); }
 .svc { border-bottom: 1px solid var(--line); }
-.svc a { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 56px; gap: 24px; align-items: center; padding: clamp(28px, 4vw, 44px) 0; text-decoration: none; position: relative; }
-.svc h3 { font-size: clamp(34px, 5.4vw, 72px); letter-spacing: -.035em; transition: color .25s, transform .35s var(--ease); }
+.svc a { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: center; padding: clamp(28px, 4vw, 44px) 0; text-decoration: none; position: relative; }
+.svc h3 { font-size: clamp(34px, 5.4vw, 72px); letter-spacing: -.035em; transition: color .2s; text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 3px; text-underline-offset: .14em; }
 .svc p { color: var(--muted); font-size: 17px; max-width: 44ch; }
-.svc .go { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px var(--line); transition: background .25s, box-shadow .25s, transform .35s var(--ease); }
-.svc .go svg { width: 20px; height: 20px; }
-.svc a:hover h3 { color: var(--orange); transform: translateX(8px); }
-.svc a:hover .go { background: var(--orange); box-shadow: none; color: var(--white); transform: rotate(-38deg); }
-@media (max-width: 760px) { .svc a { grid-template-columns: minmax(0, 1fr) 48px; } .svc p { grid-column: 1; } .svc .go { grid-row: 1; grid-column: 2; width: 48px; height: 48px; } }
+.svc a:hover h3 { color: var(--orange); text-decoration-color: currentColor; }
+@media (max-width: 760px) { .svc a { grid-template-columns: 1fr; gap: 12px; } }
 
-/* Exemples : cartes bleues */
-.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.case { background: var(--navy); color: var(--on-navy); border-radius: 24px; padding: clamp(26px, 3vw, 36px); display: grid; gap: 18px; align-content: start; position: relative; overflow: hidden; overflow: clip; min-height: 320px; }
-.case:nth-child(2) { background: var(--navy-soft); }
-.case:nth-child(3) { background: var(--orange); }
-.case .k { position: absolute; right: -30px; bottom: -40px; width: 180px; opacity: .14; }
-.case .k { --k-stem: #FFFFFF; --k-leg: #FFFFFF; }
-.case small { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--orange-hot); }
-.case:nth-child(3) small { color: var(--navy); }
-.case h3 { font-size: clamp(26px, 2.6vw, 32px); }
-.case ul { list-style: none; padding: 0; display: grid; gap: 8px; color: var(--on-navy-muted); font-size: 16px; position: relative; }
-.case:nth-child(3) ul { color: rgba(255,255,255,.92); }
-.case li { padding-left: 22px; position: relative; }
-.case li::before { content: ""; position: absolute; left: 0; top: .7em; width: 10px; height: 2px; background: currentColor; transform: skewX(-38deg); }
-@media (max-width: 900px) { .cases { grid-template-columns: 1fr; } .case { min-height: 0; } }
+/* Exemples : un panneau, trois colonnes */
+.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--navy); color: var(--on-navy); border-radius: 28px; padding: clamp(8px, 2vw, 24px) clamp(24px, 3vw, 40px); }
+.case { display: grid; gap: 14px; align-content: start; padding: clamp(24px, 3vw, 36px) clamp(20px, 2.4vw, 32px); }
+.case:first-child { padding-left: 0; }
+.case:last-child { padding-right: 0; }
+.case + .case { border-left: 1px solid var(--on-navy-line); }
+.case small { font-size: 15px; font-weight: 500; color: var(--orange-hot); }
+.case h3 { font-size: clamp(24px, 2.4vw, 30px); }
+.case ul { padding-left: 1.1em; display: grid; gap: 6px; color: var(--on-navy-muted); font-size: 16px; }
+.case li::marker { color: var(--orange-hot); }
+@media (max-width: 900px) { .cases { grid-template-columns: 1fr; } .case, .case:first-child, .case:last-child { padding: 24px 0; } .case + .case { border-left: 0; border-top: 1px solid var(--on-navy-line); } }
 
 /* Méthode */
 .method { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; list-style: none; padding: 0; counter-reset: s; margin-top: clamp(40px, 5vw, 64px); }
 .method li { counter-increment: s; padding: 0 24px 0 0; display: grid; gap: 12px; align-content: start; position: relative; }
-.method li::before { content: "0" counter(s); font-size: clamp(44px, 5vw, 64px); font-weight: 300; letter-spacing: -.03em; color: var(--orange-hot); line-height: 1; }
-.method li::after { content: ""; position: absolute; top: 30px; left: 84px; right: 16px; height: 1px; background: var(--on-navy-line); }
+.method li::before { content: counter(s); font-size: clamp(44px, 5vw, 64px); font-weight: 300; letter-spacing: -.03em; color: var(--orange-hot); line-height: 1; }
+.method li::after { content: ""; position: absolute; top: 30px; left: 56px; right: 16px; height: 1px; background: var(--on-navy-line); }
 .method li:last-child::after { display: none; }
 .method h3 { font-size: 24px; }
 .method p { color: var(--on-navy-muted); font-size: 16px; }
@@ -193,8 +156,9 @@ img { max-width: 100%; }
 /* Appel final */
 .cta { position: relative; overflow: hidden; overflow: clip; }
 .cta .wrap { display: grid; gap: 32px; position: relative; z-index: 1; }
-.cta h2 { font-size: clamp(44px, 8vw, 112px); letter-spacing: -.04em; line-height: .95; max-width: 12ch; }
-.cta .bg { position: absolute; right: -4%; top: 50%; transform: translateY(-50%); width: min(46vw, 560px); opacity: .9; pointer-events: none; }
+.cta h2 { font-size: clamp(40px, 6.4vw, 88px); letter-spacing: -.035em; line-height: 1; max-width: 13ch; }
+.cta p { font-size: clamp(18px, 1.9vw, 21px); color: var(--on-navy-muted); max-width: 46ch; margin-top: -12px; }
+.cta .bg { position: absolute; right: -4%; top: 50%; transform: translateY(-50%); width: min(40vw, 480px); pointer-events: none; }
 .cta .bg { --k-stem: rgba(255,255,255,.06); --k-leg: var(--orange); }
 @media (max-width: 760px) { .cta .bg { width: 80vw; right: -30%; opacity: .25; } }
 
@@ -205,10 +169,9 @@ img { max-width: 100%; }
 .crumb a { color: var(--on-navy-muted); text-decoration: none; }
 .crumb a:hover { color: var(--white); }
 .page-hero h1 { font-size: clamp(48px, 9vw, 120px); letter-spacing: -.04em; line-height: .95; }
-.page-hero .promise { font-size: clamp(22px, 3vw, 34px); font-weight: 500; color: var(--orange-hot); letter-spacing: -.01em; line-height: 1.2; }
 .page-hero .lead { margin-top: 4px; }
 .page-hero .big-k { position: absolute; right: -6%; bottom: -18%; width: min(48vw, 560px); pointer-events: none; }
-.page-hero .big-k { --k-stem: rgba(255,255,255,.05); --k-leg: var(--orange); }
+.page-hero .big-k { --k-stem: rgba(255,255,255,.05); --k-leg: rgba(232,96,28,.85); }
 @media (max-width: 760px) { .page-hero .big-k { width: 88vw; right: -40%; opacity: .3; } }
 .two-col { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 6vw, 96px); }
 @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
@@ -220,7 +183,8 @@ img { max-width: 100%; }
 .offer p { color: var(--muted); font-size: 16px; padding-left: 26px; }
 @media (max-width: 640px) { .offer { grid-template-columns: 1fr; } .offer li, .offer li:nth-child(even) { padding: 22px 0; border-left: 0; } }
 .deliver { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.deliver div { background: var(--paper); border-radius: 20px; padding: 28px; display: grid; gap: 10px; align-content: start; }
+.deliver { gap: clamp(20px, 3vw, 40px); }
+.deliver div { border-top: 3px solid var(--navy); padding-top: 20px; display: grid; gap: 8px; align-content: start; }
 .deliver b { font-size: 20px; }
 .deliver span { color: var(--muted); font-size: 16px; }
 @media (max-width: 860px) { .deliver { grid-template-columns: 1fr; } }
@@ -231,34 +195,30 @@ img { max-width: 100%; }
 .scenario li::before { content: counter(c); font-weight: 600; color: var(--orange-hot); font-size: 18px; }
 .scenario li b { color: var(--white); font-weight: 600; }
 @media (max-width: 860px) { .scenario { grid-template-columns: 1fr; } }
-.next { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.next a { background: var(--white); border-radius: 20px; padding: 28px; text-decoration: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background .25s, color .25s; }
-.next a:hover { background: var(--navy); color: var(--white); }
-.next small { display: block; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--orange); margin-bottom: 6px; }
-.next b { font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -.02em; }
-@media (max-width: 640px) { .next { grid-template-columns: 1fr; } }
+.next { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; border-top: 1px solid var(--line); padding-top: 28px; }
+.next p { color: var(--muted); font-size: 17px; }
+.next a { font-size: clamp(26px, 3.4vw, 40px); font-weight: 600; letter-spacing: -.02em; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: .16em; text-decoration-color: var(--orange); }
+.next a:hover { color: var(--orange); }
 
 /* Agence */
 .mission-q { font-size: clamp(32px, 5vw, 64px); font-weight: 500; letter-spacing: -.03em; line-height: 1.08; max-width: 20ch; }
 .mvv { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: clamp(40px, 6vw, 72px); padding-top: 32px; border-top: 1px solid var(--on-navy-line); }
-.mvv p { color: var(--on-navy-muted); font-size: 19px; margin-top: 12px; }
-.values { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-.values span { font-size: 16px; padding: 8px 16px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+.mvv h3 { font-size: 17px; font-weight: 600; color: var(--orange-hot); letter-spacing: 0; }
+.mvv p { color: var(--on-navy-muted); font-size: 19px; margin-top: 10px; }
 @media (max-width: 700px) { .mvv { grid-template-columns: 1fr; } }
-.engs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.eng { background: var(--white); border-radius: 20px; padding: 30px; display: grid; gap: 12px; align-content: start; }
-.eng h3 { font-size: 22px; letter-spacing: -.01em; }
+.engs { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 5vw, 72px); border-top: 2px solid var(--navy); }
+.eng { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.eng h3 { font-size: 21px; letter-spacing: -.01em; }
 .eng p { color: var(--muted); font-size: 16px; }
-.eng svg { width: 34px; height: 34px; }
-@media (max-width: 900px) { .engs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 580px) { .engs { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .engs { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .eng { grid-template-columns: 1fr; gap: 6px; } }
 
 /* Contact */
 .contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
 @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
 .channels { display: grid; margin-top: 8px; }
 .channel { display: grid; gap: 4px; padding: 20px 0; border-top: 1px solid var(--on-navy-line); }
-.channel small { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--on-navy-muted); }
+.channel small { font-size: 15px; font-weight: 500; color: var(--on-navy-muted); }
 .channel .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .channel .val { font-size: clamp(20px, 2.4vw, 24px); font-weight: 500; text-decoration: none; word-break: break-word; color: var(--white); }
 .copy { font: 500 14px/1 var(--font); padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--white); cursor: pointer; }
@@ -284,7 +244,7 @@ legend { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
 footer { background: var(--navy-deep); color: var(--on-navy-muted); padding-block: clamp(56px, 7vw, 88px) calc(32px + env(safe-area-inset-bottom, 0px)); }
 footer .grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 40px; }
 footer .logo { height: 36px; color: var(--white); }
-footer h4 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--white); margin-bottom: 14px; font-weight: 600; }
+footer h4 { font-size: 16px; letter-spacing: 0; color: var(--white); margin-bottom: 14px; font-weight: 600; }
 footer ul { list-style: none; padding: 0; display: grid; gap: 10px; font-size: 15px; }
 footer a { text-decoration: none; }
 footer a:hover { color: var(--white); }
@@ -292,76 +252,20 @@ footer .tag { margin-top: 18px; max-width: 32ch; font-size: 15px; }
 footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--on-navy-line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; }
 @media (max-width: 860px) { footer .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } footer .grid > div:first-child { grid-column: 1 / -1; } }
 
-/* ===== Dégradés et animations ===== */
+/* ===== Dégradé : uniquement dans le k et le film ===== */
 :root {
-  --rose: #D9376E;
-  --indigo: #4B3FB8;
   --grad: linear-gradient(110deg, #E8601C 0%, #F2834A 30%, #D9376E 62%, #4B3FB8 100%);
-  --grad-loop: linear-gradient(110deg, #E8601C 0%, #D9376E 25%, #4B3FB8 50%, #D9376E 75%, #E8601C 100%);
-  --grad-soft: linear-gradient(135deg, rgba(232,96,28,.9), rgba(217,55,110,.85) 55%, rgba(75,63,184,.9));
 }
-.deep, .navy, .mission {
-  background-color: var(--navy-deep);
-  background-image:
-    radial-gradient(40% 55% at 85% 15%, rgba(232,96,28,.42), transparent 70%),
-    radial-gradient(45% 60% at 10% 90%, rgba(75,63,184,.55), transparent 70%),
-    radial-gradient(35% 45% at 55% 60%, rgba(217,55,110,.28), transparent 70%);
-  background-size: 160% 160%;
-  background-repeat: no-repeat;
-  animation: drift 18s ease-in-out infinite alternate;
-}
-.navy { background-color: var(--navy); }
-@keyframes drift { 0% { background-position: 0% 0%; } 50% { background-position: 60% 40%; } 100% { background-position: 100% 100%; } }
-.grad-text, .hero h1 .rot span, .accent, .navy .accent, .deep .accent, .manifest .words span:nth-child(3), .page-hero .promise, .method li::before, .cta h2 .accent {
-  background: var(--grad-loop); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
-  animation: sheen 6s linear infinite;
-}
-.hero h1 .rot { color: inherit; }
-@keyframes sheen { to { background-position: 200% center; } }
-.label { color: transparent; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-.label::before { background: var(--grad); }
-.btn:not(.line):not(.dark) { background: var(--grad); background-size: 200% auto; transition: background-position .6s var(--ease), transform .2s var(--ease), box-shadow .3s; }
-.btn:not(.line):not(.dark):hover { background: var(--grad); background-size: 200% auto; background-position: 100% center; box-shadow: 0 10px 30px -10px rgba(217,55,110,.6); }
-.ticker { background: var(--grad-loop); background-size: 200% 100%; animation: sheen 10s linear infinite; }
-.case { background: var(--navy); }
-.case:nth-child(2) { background: linear-gradient(160deg, #1D3762, #3A2F8F); }
-.case:nth-child(3) { background: var(--grad-soft); }
-.svc a::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease); }
-.svc a:hover::after { transform: scaleX(1); }
-.svc a:hover h3 { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-.svc a:hover .go { background: var(--grad); }
-.deliver div, .eng, .who div, .next a { position: relative; transition: transform .35s var(--ease), box-shadow .35s; }
-.eng::after, .deliver div::after, .next a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; background: var(--grad); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .35s; pointer-events: none; }
-.eng:hover, .deliver div:hover, .next a:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgba(19,41,75,.35); }
-.eng:hover::after, .deliver div:hover::after, .next a:hover::after { opacity: 1; }
-.next a:hover { background: var(--navy); }
-.scenario { background: linear-gradient(140deg, #13294B 0%, #1D3762 55%, #3A2F8F 100%); }
-.offer h3::before, .case li::before { background: var(--grad); }
-.page-hero .big-k, .cta .bg { --k-leg: url(#kgrad); }
-.top .btn { box-shadow: none; }
-.glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(242,131,74,.35), rgba(217,55,110,.18) 40%, transparent 70%); pointer-events: none; transform: translate(-50%, -50%); left: var(--gx, 70%); top: var(--gy, 30%); transition: left .4s ease-out, top .4s ease-out; z-index: 0; }
-
-/* Apparition au défilement (activée seulement si le script tourne) */
-.anim [data-r] { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
-.anim [data-r].in { opacity: 1; transform: none; }
-.anim .hero h1, .anim .page-hero h1 { animation: rise 1s var(--ease) both; }
-.anim .hero .intro, .anim .page-hero .lead, .anim .page-hero .promise { animation: rise 1s .15s var(--ease) both; }
-@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
-.anim .page-hero .promise { animation: rise 1s .15s var(--ease) both, sheen 6s linear infinite; }
-@media (prefers-reduced-motion: reduce) {
-  .deep, .navy, .mission, .ticker, .grad-text, .hero h1 .rot span, .accent, .label, .method li::before { animation: none !important; }
-  .anim [data-r] { opacity: 1; transform: none; transition: none; }
-  .anim .hero h1, .anim .page-hero h1, .anim .hero .intro, .anim .page-hero .lead, .anim .page-hero .promise { animation: none; }
-}
+.scenario { background: var(--navy-soft); }
+.offer h3::before { background: var(--orange); }
 
 /* ===== Film motion design (12 s en boucle) ===== */
 .film-band { background: var(--paper); }
 .film { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 28px; overflow: hidden; overflow: clip; color: var(--white); background-color: var(--navy-deep);
   background-image: radial-gradient(45% 60% at 80% 20%, rgba(232,96,28,.5), transparent 70%), radial-gradient(50% 65% at 15% 85%, rgba(75,63,184,.6), transparent 70%), radial-gradient(35% 45% at 50% 50%, rgba(217,55,110,.3), transparent 70%);
-  background-size: 160% 160%; animation: drift 12s ease-in-out infinite alternate;
   --T: 12s; --kx: -50%; --ky: -50%; --kbx: -128%; --kby: -50%; --ks: .6; }
 @media (max-width: 700px) { .film { aspect-ratio: 4 / 5; --kbx: -50%; --kby: -105%; --ks: .55; } }
-.film * { animation-duration: var(--T); animation-iteration-count: infinite; animation-timing-function: var(--ease); }
+.film *:not(.f-ctrl) { animation-duration: var(--T); animation-iteration-count: infinite; animation-timing-function: var(--ease); }
 .film.paused, .film.paused * { animation-play-state: paused !important; }
 .f-k { position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; transform: translate(var(--kx), var(--ky)); animation-name: fk; }
 @media (max-width: 700px) { .f-k { width: 46%; } }
@@ -378,7 +282,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 .f-word { position: absolute; left: 0; right: 0; top: 0; transform: translateY(-50%); font-weight: 600; letter-spacing: -.035em; line-height: 1; font-size: 7.2cqw; opacity: 0; white-space: nowrap; }
 @media (max-width: 700px) { .f-word { font-size: 11cqw; } }
 .f-word span { display: block; font-size: .32em; font-weight: 500; letter-spacing: 0; color: var(--on-navy-muted); margin-top: .5em; line-height: 1.3; }
-.f-word b { font-weight: 600; background: var(--grad-loop); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.f-word b { font-weight: 600; }
 .f-word:nth-child(1) { animation-name: fw1; } .f-word:nth-child(2) { animation-name: fw2; } .f-word:nth-child(3) { animation-name: fw3; }
 @keyframes fw1 { 0%, 35% { opacity: 0; transform: translateY(-20%); } 38%, 44% { opacity: 1; transform: translateY(-50%); } 47%, 100% { opacity: 0; transform: translateY(-80%); } }
 @keyframes fw2 { 0%, 46% { opacity: 0; transform: translateY(-20%); } 49%, 55% { opacity: 1; transform: translateY(-50%); } 58%, 100% { opacity: 0; transform: translateY(-80%); } }
@@ -388,14 +292,13 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 @media (max-width: 700px) { .f-end .logo { width: 70cqw; } }
 .f-end p { font-size: 3.4cqw; font-weight: 500; letter-spacing: -.01em; }
 @media (max-width: 700px) { .f-end p { font-size: 6cqw; } }
-.f-end p b { background: var(--grad-loop); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+.f-end p b { font-weight: 600; color: var(--orange-hot); }
 @keyframes fend { 0%, 71% { opacity: 0; transform: scale(.94); } 76%, 94% { opacity: 1; transform: scale(1); } 99%, 100% { opacity: 0; transform: scale(1.03); } }
 .f-bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: var(--grad); transform-origin: left; animation-name: fbar; animation-timing-function: linear !important; }
 @keyframes fbar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .f-ctrl { position: absolute; right: 16px; bottom: 18px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.14); color: var(--white); display: grid; place-items: center; cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 2; }
 .f-ctrl:hover { background: rgba(255,255,255,.24); }
 .f-ctrl svg { width: 18px; height: 18px; }
-.f-tag { position: absolute; left: 20px; top: 18px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--on-navy-muted); z-index: 2; }
 @media (prefers-reduced-motion: reduce) {
   .film, .film * { animation: none !important; }
   .f-k, .f-words { display: none; }
@@ -408,7 +311,6 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   <defs>
     <symbol id="k" viewBox="0 0 100 100"><g transform="translate(2.06 93.20) scale(1.2)"><path style="fill:var(--k-stem)" d="M6.1 0V-72H17.1V0Z"/><path style="fill:var(--k-leg)" d="M23.15 -22.56 L47.15 -48.00 L62.27 -48.00 L39.82 -24.20 L73.79 0 L54.83 0 Z"/><circle style="fill:var(--k-leg)" cx="69.99" cy="-62.65" r="6.82"/></g></symbol>
     <linearGradient id="kgrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#E8601C"/><stop offset=".55" stop-color="#D9376E"/><stop offset="1" stop-color="#4B3FB8"/></linearGradient>
-    <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
 
@@ -420,7 +322,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       <a href="#evenementiel">Événementiel</a>
       <a href="#impression">Impression</a>
       <a href="#agence">L’agence</a>
-      <a class="btn" href="#contact">Demander un devis <svg class="arr" width="18" height="18"><use href="#arrow"/></svg></a>
+      <a class="btn" href="#contact">Demander un devis</a>
     </nav>
     <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span></span></button>
   </div>
@@ -432,13 +334,12 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   <section class="hero deep">
     <div class="wrap">
       <div>
-        <p class="label">Agence de communication de proximité · Guinée</p>
-        <h1 style="margin-top:24px">On fait vivre<br>vos <span class="rot" id="rot"><span class="cur">marques.</span><span>produits.</span><span>événements.</span><span>idées.</span></span></h1>
+        <h1>Nous faisons connaître votre marque sur le terrain.</h1>
         <div class="intro">
-          <p>Activation terrain, événementiel, impression. Kafalis Group conçoit et déploie les actions qui font voir, essayer et adopter votre marque, à Conakry et partout en Guinée.</p>
+          <p>Kafalis Group est une agence de communication basée à Conakry. Nous organisons vos activations en points de vente, vos événements et l’impression de vos supports, partout en Guinée.</p>
           <div class="btns">
-            <a class="btn" href="#contact">Parlons de votre projet <svg class="arr" width="18" height="18"><use href="#arrow"/></svg></a>
-            <a class="btn line" href="#agence">Découvrir l’agence</a>
+            <a class="btn" href="#contact">Demander un devis</a>
+            <a class="btn line" href="#agence">L’agence</a>
           </div>
         </div>
       </div>
@@ -449,30 +350,14 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
         <g class="g-dot"><circle class="dot" cx="69.99" cy="-62.65" r="6.82"/></g>
       </svg>
     </div>
-    <div class="wrap">
-      <div class="facts">
-        <div><b>3 métiers</b><span>Activation, événementiel, impression</span></div>
-        <div><b>1 interlocuteur</b><span>De l’idée jusqu’au bilan</span></div>
-        <div><b>Toute la Guinée</b><span>Depuis Conakry</span></div>
-      </div>
-    </div>
   </section>
-
-  <div class="ticker" aria-hidden="true">
-    <div class="track">
-      <ul><li>Dégustations</li><li>Animations en points de vente</li><li>Lancements de produits</li><li>Cérémonies officielles</li><li>Conférences</li><li>Stands de marque</li><li>Bâches et kakemonos</li><li>Goodies</li><li>Décoration</li><li>Son, lumière, écrans</li></ul>
-      <ul><li>Dégustations</li><li>Animations en points de vente</li><li>Lancements de produits</li><li>Cérémonies officielles</li><li>Conférences</li><li>Stands de marque</li><li>Bâches et kakemonos</li><li>Goodies</li><li>Décoration</li><li>Son, lumière, écrans</li></ul>
-    </div>
-  </div>
 
   <section class="band film-band" aria-labelledby="film-title">
     <div class="wrap">
       <div class="svc-head">
-        <div class="stack"><p class="label">Kafalis en mouvement</p><h2 class="h2" id="film-title">Une marque qui avance<br>d’un pas.</h2></div>
-        <p class="lead" style="max-width:40ch">Activer, organiser, imprimer : trois métiers pour une seule idée, faire avancer votre marque.</p>
+        <h2 class="h2" id="film-title">Nos métiers en 12 secondes</h2>
       </div>
       <div class="film" id="film" role="img" aria-label="Animation : le k de Kafalis se construit et avance d’un pas, puis les mots On active, On organise, On imprime, et le logo Kafalis Group avec le slogan Donner vie aux idées, créer l’impact.">
-        <span class="f-tag" aria-hidden="true">Kafalis Group</span>
         <div class="f-k" aria-hidden="true">
           <svg viewBox="-6 -84 92 92"><path class="f-stem" d="M6.1 0V-72H17.1V0Z"/><path class="f-leg" d="M23.15 -22.56 L47.15 -48.00 L62.27 -48.00 L39.82 -24.20 L73.79 0 L54.83 0 Z"/><circle class="f-dot" cx="69.99" cy="-62.65" r="6.82"/></svg>
         </div>
@@ -490,24 +375,21 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 
   <section class="band white">
     <div class="wrap manifest">
-      <h2 class="words" aria-label="Vue. Essayée. Adoptée."><span>Vue.</span><span>Essayée.</span><span>Adoptée.</span></h2>
-      <div class="text">
-        <p>Une marque se fait connaître quand on la voit, qu’on l’essaie et qu’on en parle.</p>
-        <p>Kafalis Group crée ces moments : en point de vente, sur les marchés, en salle et sur chaque support imprimé.</p>
-      </div>
+      <h2>Un client achète plus volontiers un produit qu’il a déjà vu et goûté.</h2>
+      <p>C’est notre travail : mettre votre produit dans les mains de vos clients, en point de vente, sur les marchés et en salle, avec les bons supports imprimés autour.</p>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap">
       <div class="svc-head">
-        <div class="stack"><p class="label">Nos métiers</p><h2 class="h2">Trois métiers,<br>un seul pilote.</h2></div>
-        <p class="lead" style="max-width:40ch">Vous avez un seul interlocuteur pour l’idée, les équipes, les prestataires, les supports et le bilan.</p>
+        <h2 class="h2">Nos trois métiers</h2>
+        <p class="lead" style="max-width:40ch">Une seule personne suit votre projet, de l’idée jusqu’au bilan, même quand il mêle plusieurs métiers.</p>
       </div>
       <ul class="svc-list">
-        <li class="svc"><a href="#activation"><h3>Activation terrain</h3><p>Dégustations, démonstrations, animations en points de vente et sur les marchés, avec des équipes briefées et encadrées.</p><span class="go"><svg><use href="#arrow"/></svg></span></a></li>
-        <li class="svc"><a href="#evenementiel"><h3>Événementiel</h3><p>Lancements, conférences, cérémonies officielles. Lieu, décor, son, écrans, accueil et protocole pris en main.</p><span class="go"><svg><use href="#arrow"/></svg></span></a></li>
-        <li class="svc"><a href="#impression"><h3>Impression et supports</h3><p>Flyers, affiches, bâches, kakemonos, signalétique et goodies, conseillés, contrôlés et livrés à temps.</p><span class="go"><svg><use href="#arrow"/></svg></span></a></li>
+        <li class="svc"><a href="#activation"><h3>Activation terrain</h3><p>Dégustations, démonstrations, animations en points de vente et sur les marchés, avec des équipes briefées et encadrées.</p></a></li>
+        <li class="svc"><a href="#evenementiel"><h3>Événementiel</h3><p>Lancements, conférences, cérémonies officielles. Lieu, décor, son, écrans, accueil et protocole pris en main.</p></a></li>
+        <li class="svc"><a href="#impression"><h3>Impression et supports</h3><p>Flyers, affiches, bâches, kakemonos, signalétique et goodies, conseillés, contrôlés et livrés à temps.</p></a></li>
       </ul>
     </div>
   </section>
@@ -515,19 +397,19 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   <section class="band white">
     <div class="wrap">
       <div class="svc-head">
-        <div class="stack"><p class="label">Exemples de dispositifs</p><h2 class="h2">Votre besoin,<br>notre dispositif.</h2></div>
+        <h2 class="h2">Trois demandes que nous recevons souvent</h2>
       </div>
       <div class="cases">
-        <article class="case"><svg class="k" viewBox="0 0 100 100" aria-hidden="true"><use href="#k"/></svg><small>Activation</small><h3>Vous lancez un produit</h3><ul><li>Dégustations en points de vente</li><li>Animateurs formés au produit</li><li>Stand aux couleurs de la marque</li><li>Rapport final avec photos et quantités distribuées</li></ul></article>
-        <article class="case"><svg class="k" viewBox="0 0 100 100" aria-hidden="true"><use href="#k"/></svg><small>Événementiel</small><h3>Vous organisez une cérémonie</h3><ul><li>Lieu, décor, son et écrans</li><li>Accueil et protocole</li><li>Invitations et signalétique</li><li>Coordination complète le jour J</li></ul></article>
-        <article class="case"><svg class="k" viewBox="0 0 100 100" aria-hidden="true"><use href="#k"/></svg><small>Visibilité</small><h3>Vous voulez être vu</h3><ul><li>Animations de rue et sur les marchés</li><li>Banderoles et affichage</li><li>Distribution de flyers</li><li>Autorisations obtenues en amont</li></ul></article>
+        <article class="case"><small>Activation</small><h3>Vous lancez un produit</h3><ul><li>Dégustations en points de vente</li><li>Animateurs formés au produit</li><li>Stand aux couleurs de la marque</li><li>Rapport final avec photos et quantités distribuées</li></ul></article>
+        <article class="case"><small>Événementiel</small><h3>Vous organisez une cérémonie</h3><ul><li>Lieu, décor, son et écrans</li><li>Accueil et protocole</li><li>Invitations et signalétique</li><li>Coordination complète le jour J</li></ul></article>
+        <article class="case"><small>Visibilité locale</small><h3>Vous voulez être vu</h3><ul><li>Animations de rue et sur les marchés</li><li>Banderoles et affichage</li><li>Distribution de flyers</li><li>Autorisations obtenues en amont</li></ul></article>
       </div>
     </div>
   </section>
 
   <section class="band navy">
     <div class="wrap">
-      <div class="stack"><p class="label">Notre méthode</p><h2 class="h2">Cinq pas,<br>du brief au bilan.</h2></div>
+      <h2 class="h2">Comment nous travaillons</h2>
       <ol class="method">
         <li><h3>Écouter</h3><p>Objectif, public, budget, délais.</p></li>
         <li><h3>Proposer</h3><p>Un dispositif clair et un devis détaillé en GNF.</p></li>
@@ -541,7 +423,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   <section class="band white">
     <div class="wrap">
       <div class="svc-head">
-        <div class="stack"><p class="label">Pour qui</p><h2 class="h2">Ceux que nous accompagnons.</h2></div>
+        <h2 class="h2">Pour qui nous travaillons</h2>
       </div>
       <div class="sectors">
         <div><h3>Marques et entreprises</h3><p>Lancements, activations en points de vente, campagnes de visibilité, événements d’entreprise.</p></div>
@@ -562,14 +444,13 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     <div class="wrap">
       <p class="crumb"><a href="#accueil">Accueil</a><span>/</span><span>Métiers</span></p>
       <h1>Activation<br>terrain</h1>
-      <p class="promise">Faire découvrir, faire essayer, faire acheter.</p>
       <p class="lead">Votre produit présent, expliqué et goûté là où vos clients achètent : en point de vente, au marché, dans la rue et dans les lieux publics autorisés.</p>
-      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Activation terrain">Préparer une activation <svg class="arr" width="18" height="18"><use href="#arrow"/></svg></a></div>
+      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Activation terrain">Préparer une activation</a></div>
     </div>
   </section>
   <section class="band white">
     <div class="wrap two-col">
-      <div class="stack"><p class="label">Ce que nous faisons</p><h2 class="h2">Sur le terrain, au contact.</h2></div>
+      <h2 class="h2">Ce que comprend une activation</h2>
       <ul class="offer">
         <li><h3>Dégustations et démonstrations</h3><p>Le client goûte, touche, essaie. Distribution d’échantillons encadrée.</p></li>
         <li><h3>Animations commerciales</h3><p>Points de vente, marchés et lieux publics autorisés, avec un message clair.</p></li>
@@ -583,7 +464,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   <section class="band">
     <div class="wrap">
       <div class="scenario">
-        <div class="stack"><p class="label">Dispositif type</p><h3>Lancement d’un produit en points de vente</h3><p style="color:var(--on-navy-muted)">Un exemple de déroulé, adapté ensuite à votre produit, à vos zones et à votre budget.</p></div>
+        <div class="stack"><h3>Exemple : lancement d’un produit en points de vente</h3><p style="color:var(--on-navy-muted)">Un exemple de déroulé, adapté ensuite à votre produit, à vos zones et à votre budget.</p></div>
         <ol>
           <li><span><b>Brief et choix des points de vente</b> selon votre cible et vos zones.</span></li>
           <li><span><b>Formation des animateurs</b> au produit et au discours de marque.</span></li>
@@ -605,14 +486,13 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     <div class="wrap">
       <p class="crumb"><a href="#accueil">Accueil</a><span>/</span><span>Métiers</span></p>
       <h1>Événe&shy;mentiel</h1>
-      <p class="promise">Du besoin au bilan, tout est pris en main.</p>
-      <p class="lead">Lancements de produits, conférences, ateliers, cérémonies officielles et événements d’entreprise. Un seul pilote coordonne tous les prestataires pour un événement sans fausse note.</p>
-      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Événement">Organiser un événement <svg class="arr" width="18" height="18"><use href="#arrow"/></svg></a></div>
+      <p class="lead">Lancements de produits, conférences, ateliers, cérémonies officielles et événements d’entreprise. Une seule personne coordonne tous les prestataires, de la préparation au jour J.</p>
+      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Événement">Organiser un événement</a></div>
     </div>
   </section>
   <section class="band white">
     <div class="wrap two-col">
-      <div class="stack"><p class="label">Ce que nous faisons</p><h2 class="h2">Chaque détail, un seul responsable.</h2></div>
+      <h2 class="h2">Ce que nous prenons en charge</h2>
       <ul class="offer">
         <li><h3>Lieu et logistique</h3><p>Recherche du lieu, plan d’implantation, transport et installation.</p></li>
         <li><h3>Décoration</h3><p>Scénographie, mobilier, fleurs et habillage aux couleurs de l’événement.</p></li>
@@ -626,7 +506,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   <section class="band">
     <div class="wrap">
       <div class="scenario">
-        <div class="stack"><p class="label">Dispositif type</p><h3>Cérémonie officielle ou conférence</h3><p style="color:var(--on-navy-muted)">Un exemple de déroulé, adapté ensuite à votre format, au nombre d’invités et à votre budget.</p></div>
+        <div class="stack"><h3>Exemple : cérémonie officielle ou conférence</h3><p style="color:var(--on-navy-muted)">Un exemple de déroulé, adapté ensuite à votre format, au nombre d’invités et à votre budget.</p></div>
         <ol>
           <li><span><b>Cadrage</b> : objectif, invités, date, lieu et budget.</span></li>
           <li><span><b>Proposition</b> : concept, décor, programme et devis détaillé en GNF.</span></li>
@@ -648,14 +528,13 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     <div class="wrap">
       <p class="crumb"><a href="#accueil">Accueil</a><span>/</span><span>Métiers</span></p>
       <h1>Impression<br>et supports</h1>
-      <p class="promise">Le bon support, au bon format, livré à temps.</p>
       <p class="lead">Des petits imprimés aux grands formats, nous vous conseillons, nous produisons et nous contrôlons chaque support avant de vous le remettre.</p>
-      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Impression et supports">Demander un devis d’impression <svg class="arr" width="18" height="18"><use href="#arrow"/></svg></a></div>
+      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Impression et supports">Demander un devis d’impression</a></div>
     </div>
   </section>
   <section class="band white">
     <div class="wrap two-col">
-      <div class="stack"><p class="label">Ce que nous produisons</p><h2 class="h2">Du flyer à la bâche.</h2></div>
+      <h2 class="h2">Ce que nous imprimons</h2>
       <ul class="offer">
         <li><h3>Imprimés</h3><p>Flyers, dépliants, affiches, brochures, cartes de visite, invitations.</p></li>
         <li><h3>Grand format</h3><p>Bâches, kakemonos, panneaux, banderoles.</p></li>
@@ -669,7 +548,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   <section class="band">
     <div class="wrap">
       <div class="scenario">
-        <div class="stack"><p class="label">Comment ça se passe</p><h3>De la maquette à la livraison</h3><p style="color:var(--on-navy-muted)">Vous nous envoyez vos fichiers ou votre idée, nous nous occupons du reste.</p></div>
+        <div class="stack"><h3>De vos fichiers à la livraison</h3><p style="color:var(--on-navy-muted)">Vous nous envoyez vos fichiers ou votre idée, nous nous occupons du reste.</p></div>
         <ol>
           <li><span><b>Besoin</b> : usage, quantité, format et date de livraison.</span></li>
           <li><span><b>Conseil et devis</b> en GNF, avec les options de finition.</span></li>
@@ -696,30 +575,29 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   </section>
   <section class="band navy">
     <div class="wrap">
-      <p class="label">Notre mission</p>
-      <p class="mission-q" style="margin-top:24px">Des solutions fiables et créatives qui rendent les marques visibles et font réussir les projets de nos clients.</p>
+      <p class="mission-q">Notre travail : rendre les marques visibles là où leurs clients vivent et achètent, et livrer chaque projet comme prévu.</p>
       <div class="mvv">
-        <div><p class="label">Notre vision</p><p>Le partenaire de référence en Guinée pour l’activation, l’événementiel et l’impression.</p></div>
-        <div><p class="label">Nos valeurs</p><div class="values"><span>Professionnalisme</span><span>Réactivité</span><span>Créativité</span><span>Transparence</span><span>Respect des engagements</span><span>Qualité</span></div></div>
+        <div><h3>Où nous voulons aller</h3><p>Devenir l’agence à qui l’on pense en premier en Guinée pour une activation, un événement ou une commande d’impression.</p></div>
+        <div><h3>Comment nous travaillons</h3><p>Un devis écrit avant de commencer, un calendrier tenu, un budget suivi et un compte rendu à la fin.</p></div>
       </div>
     </div>
   </section>
   <section class="band">
     <div class="wrap">
-      <div class="svc-head"><div class="stack"><p class="label">Nos engagements</p><h2 class="h2">Ce sur quoi vous<br>pouvez compter.</h2></div></div>
-      <div class="engs">
-        <div class="eng"><svg viewBox="0 0 34 34" fill="none" stroke="#E8601C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h12l6 6v20H9z"/><path d="M21 4v6h6M13 17h10M13 22h10"/></svg><h3>Tout est écrit</h3><p>Devis ou contrat : périmètre, délais, budget, paiement, responsabilités.</p></div>
-        <div class="eng"><svg viewBox="0 0 34 34" fill="none" stroke="#E8601C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="18" r="12"/><path d="M17 11v7l5 3"/></svg><h3>Les délais tenus</h3><p>Un calendrier validé ensemble, et respecté.</p></div>
-        <div class="eng"><svg viewBox="0 0 34 34" fill="none" stroke="#E8601C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 4 6 8v8c0 7 5 12 11 14 6-2 11-7 11-14V8z"/><path d="m12 17 4 4 7-8"/></svg><h3>Les règles respectées</h3><p>Autorisations obtenues avant d’agir, droit guinéen, droits des tiers.</p></div>
-        <div class="eng"><svg viewBox="0 0 34 34" fill="none" stroke="#E8601C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5v4M17 25v4M5 17h4M25 17h4"/><circle cx="17" cy="17" r="7"/></svg><h3>La sécurité d’abord</h3><p>Pour nos équipes, pour le public, pour votre image.</p></div>
-        <div class="eng"><svg viewBox="0 0 34 34" fill="none" stroke="#E8601C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 27h24M9 23V15M15 23V9M21 23v-6M27 23V12"/></svg><h3>Un budget transparent</h3><p>Suivi en continu, toute variation vous est soumise.</p></div>
-        <div class="eng"><svg viewBox="0 0 34 34" fill="none" stroke="#E8601C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="22" height="22" rx="3"/><path d="m11 18 4 4 8-9"/></svg><h3>Un compte rendu</h3><p>À la fin de chaque mission, ce qui a été fait et ce qu’il en ressort.</p></div>
-      </div>
+      <div class="svc-head"><h2 class="h2">Nos engagements</h2></div>
+      <ul class="engs">
+        <li class="eng"><h3>Tout est écrit</h3><p>Devis ou contrat : périmètre, délais, budget, paiement, responsabilités.</p></li>
+        <li class="eng"><h3>Les délais tenus</h3><p>Un calendrier validé ensemble, et respecté.</p></li>
+        <li class="eng"><h3>Les règles respectées</h3><p>Autorisations obtenues avant d’agir, droit guinéen, droits des tiers.</p></li>
+        <li class="eng"><h3>La sécurité d’abord</h3><p>Pour nos équipes, pour le public, pour votre image.</p></li>
+        <li class="eng"><h3>Un budget transparent</h3><p>Suivi en continu, toute variation vous est soumise.</p></li>
+        <li class="eng"><h3>Un compte rendu</h3><p>À la fin de chaque mission, ce qui a été fait et ce qu’il en ressort.</p></li>
+      </ul>
     </div>
   </section>
   <section class="band white">
     <div class="wrap">
-      <div class="svc-head"><div class="stack"><p class="label">Pour qui</p><h2 class="h2">Ceux que nous accompagnons.</h2></div></div>
+      <div class="svc-head"><h2 class="h2">Pour qui nous travaillons</h2></div>
       <div class="sectors">
         <div><h3>Marques et entreprises</h3><p>Lancements, activations en points de vente, campagnes de visibilité, événements d’entreprise.</p></div>
         <div><h3>Institutions</h3><p>Cérémonies officielles, conférences, campagnes d’information.</p></div>
@@ -737,7 +615,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     <div class="wrap contact-grid">
       <div class="stack">
         <p class="crumb"><a href="#accueil">Accueil</a><span>/</span><span>Contact</span></p>
-        <h1 style="font-size:clamp(44px,7vw,96px)">Parlons de votre <span class="accent">projet.</span></h1>
+        <h1 style="font-size:clamp(44px,7vw,96px)">Écrivez-nous</h1>
         <p class="lead">Décrivez votre besoin en quelques lignes. Nous revenons vers vous avec une proposition et un devis détaillé en GNF.</p>
         <div class="channels">
           <div class="channel"><small>E-mail</small><div class="row"><a class="val" id="mail-link" href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a><button type="button" class="copy" id="copy-mail">Copier</button></div></div>
@@ -766,7 +644,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
         </div>
         <label for="f-msg">Votre projet<textarea id="f-msg" name="message" required placeholder="Objectif, lieu, public, budget indicatif…"></textarea></label>
         <div class="btns">
-          <button class="btn" type="submit">Envoyer par e-mail <svg class="arr" width="18" height="18"><use href="#arrow"/></svg></button>
+          <button class="btn" type="submit">Envoyer par e-mail</button>
           <button class="btn dark" type="button" id="send-wa" hidden>Envoyer sur WhatsApp</button>
         </div>
         <p class="form-note" id="form-note">Le bouton ouvre votre messagerie avec le message déjà rédigé. Il ne reste qu’à l’envoyer.</p>
@@ -781,10 +659,10 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     <div class="grid">
       <div>__LOGO__<p class="tag">Agence guinéenne de communication de proximité. Activation terrain, événementiel, impression.</p></div>
       <div><h4>Métiers</h4><ul><li><a href="#activation">Activation terrain</a></li><li><a href="#evenementiel">Événementiel</a></li><li><a href="#impression">Impression et supports</a></li></ul></div>
-      <div><h4>Agence</h4><ul><li><a href="#agence">Qui sommes-nous</a></li><li><a href="#agence">Nos engagements</a></li><li><a href="#contact">Demander un devis</a></li></ul></div>
+      <div><h4>Agence</h4><ul><li><a href="#agence">L’agence</a></li><li><a href="#contact">Demander un devis</a></li></ul></div>
       <div><h4>Contact</h4><ul><li><a href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></li><li>Conakry, Guinée</li></ul></div>
     </div>
-    <div class="legal"><span>© <span id="year">2026</span> Kafalis Group</span><span>Conakry · Guinée</span></div>
+    <div class="legal"><span>© <span id="year">2026</span> Kafalis Group</span><span>Conakry, Guinée</span></div>
   </div>
 </footer>
 
@@ -794,7 +672,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   var WHATSAPP = "";
   var EMAIL = "contact@kafalisgroup.com";
   var VIEWS = ["accueil", "activation", "evenementiel", "impression", "agence", "contact"];
-  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain · Kafalis Group", evenementiel: "Événementiel · Kafalis Group", impression: "Impression et supports · Kafalis Group", agence: "L’agence · Kafalis Group", contact: "Contact · Kafalis Group" };
+  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain | Kafalis Group", evenementiel: "Événementiel | Kafalis Group", impression: "Impression et supports | Kafalis Group", agence: "L’agence | Kafalis Group", contact: "Contact | Kafalis Group" };
   var root = document.documentElement;
   var top = document.getElementById("top");
   var burger = document.getElementById("burger");
@@ -858,18 +736,6 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     } catch (err) {}
   }
 
-  // Mot qui tourne dans le titre
-  var rot = document.getElementById("rot");
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (rot && !reduce) {
-    var words = rot.children, i = 0;
-    setInterval(function () {
-      var cur = words[i]; i = (i + 1) % words.length; var nxt = words[i];
-      cur.classList.remove("cur"); cur.classList.add("out");
-      nxt.classList.remove("out"); nxt.classList.add("cur");
-      setTimeout(function () { cur.classList.remove("out"); }, 650);
-    }, 2400);
-  }
 
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
@@ -921,50 +787,6 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(m.body);
       a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
     });
-  }
-
-  // Apparition des éléments au défilement
-  (function () {
-    if (reduce || !("IntersectionObserver" in window)) return;
-    var sel = ".manifest .words span, .manifest .text p, .svc-head, .svc, .case, .method li, .sectors > div, .facts > div, .offer li, .scenario, .deliver > div, .next a, .eng, .mvv > div, .mission-q, .cta h2, .cta .btns, form, .channel, .two-col > .stack";
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
-    function arm(scope) {
-      scope.querySelectorAll(sel).forEach(function (el) {
-        if (el.hasAttribute("data-r")) return;
-        var sibs = Array.prototype.indexOf.call(el.parentNode.children, el);
-        el.setAttribute("data-r", "");
-        el.style.setProperty("--d", Math.min(sibs, 5) * 0.08 + "s");
-        io.observe(el);
-      });
-    }
-    root.classList.add("anim");
-    arm(document);
-    // Les vues masquées sont observées à nouveau quand elles s'affichent
-    window.addEventListener("hashchange", function () { setTimeout(function () { document.querySelectorAll(".view.on [data-r]:not(.in)").forEach(function (el) { io.unobserve(el); io.observe(el); }); }, 30); });
-    document.addEventListener("click", function () { setTimeout(function () { document.querySelectorAll(".view.on [data-r]:not(.in)").forEach(function (el) { io.unobserve(el); io.observe(el); }); }, 30); });
-  })();
-
-  // Halo lumineux qui suit le doigt ou la souris dans les bandeaux sombres
-  document.querySelectorAll(".hero, .page-hero, .cta").forEach(function (sec) {
-    var g = document.createElement("div"); g.className = "glow"; g.setAttribute("aria-hidden", "true");
-    sec.insertBefore(g, sec.firstChild);
-    if (reduce) return;
-    sec.addEventListener("pointermove", function (e) {
-      var r = sec.getBoundingClientRect();
-      g.style.setProperty("--gx", (e.clientX - r.left) + "px");
-      g.style.setProperty("--gy", (e.clientY - r.top) + "px");
-    });
-  });
-
-  // Léger effet de profondeur sur les grands « k »
-  if (!reduce) {
-    var ks = document.querySelectorAll(".cadence, .big-k, .cta .bg");
-    window.addEventListener("scroll", function () {
-      var y = window.scrollY;
-      ks.forEach(function (k) { k.style.translate = "0 " + (y * 0.12).toFixed(1) + "px"; });
-    }, { passive: true });
   }
 
   // Lecture / pause du film, et pause automatique quand il sort de l'écran

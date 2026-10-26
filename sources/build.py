@@ -5,18 +5,17 @@ os.chdir(HERE)
 SITE='https://kafalisgroup.com'
 body=open('src/app.html').read()
 logo=open('assets/logo-inline.svg').read()
-arrow='<svg class="arr" width="18" height="18"><use href="#arrow"/></svg>'
-CTA=f'''<section class="band deep cta">
+CTA='''<section class="band deep cta">
     <svg class="bg" viewBox="0 0 100 100" aria-hidden="true"><use href="#k"/></svg>
     <div class="wrap">
-      <p class="label">Votre prochain projet</p>
-      <h2>Faisons avancer votre marque<span class="accent">.</span></h2>
-      <div class="btns"><a class="btn" href="#contact">Demander un devis {arrow}</a><a class="btn line" href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></div>
+      <h2>Vous préparez un lancement, un événement ou une campagne ?</h2>
+      <p>Décrivez-nous votre besoin. Nous revenons vers vous avec une proposition et un devis détaillé en GNF.</p>
+      <div class="btns"><a class="btn" href="#contact">Demander un devis</a><a class="btn line" href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></div>
     </div>
   </section>'''
 DELIVER='''<section class="band white">
     <div class="wrap">
-      <div class="svc-head"><div class="stack"><p class="label">Ce que vous recevez</p><h2 class="h2">Clair avant, suivi pendant,<br>bilan après.</h2></div></div>
+      <div class="svc-head"><h2 class="h2">Ce que vous recevez</h2></div>
       <div class="deliver">
         <div><b>Un devis détaillé en GNF</b><span>Chaque poste expliqué, sans surprise. Toute variation vous est soumise.</span></div>
         <div><b>Un responsable dédié</b><span>Une seule personne à appeler, du lancement jusqu’à la fin de la mission.</span></div>
@@ -26,7 +25,8 @@ DELIVER='''<section class="band white">
   </section>'''
 names={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports'}
 def nxt(cur):
-    cards=''.join(f'<a href="#{k}"><span><small>Autre métier</small><b>{names[k]}</b></span>{arrow}</a>' for k in names if k!=cur)
+    links=''.join(f'<a href="#{k}">{names[k]}</a>' for k in names if k!=cur)
+    cards=f'<p>Nos autres métiers</p>{links}'
     return f'<section class="band"><div class="wrap"><div class="next">{cards}</div></div></section>\n  '+CTA
 body=body.replace('__LOGO__',logo).replace('__CTA__',CTA).replace('__DELIVER__',DELIVER)
 for k in names: body=body.replace(f'__NEXT_{k}__',nxt(k))
@@ -124,8 +124,8 @@ nf='''
   <section class="page-hero deep" style="min-height:60vh">
     <div class="wrap">
       <p class="crumb"><a href="/">Accueil</a><span>/</span><span>Page introuvable</span></p>
-      <h1>Page<br>introuvable<span class="accent">.</span></h1>
-      <p class="lead">Cette adresse n’existe pas ou plus. Repartez de l’accueil ou parlez-nous directement de votre projet.</p>
+      <h1>Cette page n’existe pas</h1>
+      <p class="lead">L’adresse a peut-être changé. Repartez de l’accueil, ou écrivez-nous directement.</p>
       <div class="btns" style="margin-top:8px"><a class="btn" href="/">Retour à l’accueil</a><a class="btn line" href="/contact/">Demander un devis</a></div>
     </div>
   </section>'''

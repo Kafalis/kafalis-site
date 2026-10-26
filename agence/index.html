@@ -278,17 +278,51 @@ footer .tag { margin-top: 18px; max-width: 32ch; font-size: 15px; }
 footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--on-navy-line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; }
 @media (max-width: 860px) { footer .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } footer .grid > div:first-child { grid-column: 1 / -1; } }
 
-/* ===== Dégradé : uniquement dans le k et le film ===== */
+/* ===== Dégradé ===== */
 :root {
   --grad: linear-gradient(110deg, #E8601C 0%, #F2834A 30%, #D9376E 62%, #4B3FB8 100%);
 }
-.scenario { background: var(--navy-soft); }
+.scenario { background: linear-gradient(140deg, #13294B 0%, #1D3762 55%, #3A2F8F 100%); }
 .offer h3::before { background: var(--orange); }
+
+/* ===== Mouvement ===== */
+:root { --grad-loop: linear-gradient(110deg, #E8601C 0%, #D9376E 25%, #4B3FB8 50%, #D9376E 75%, #E8601C 100%); }
+.hero h1 .rot { display: inline-grid; }
+.hero h1 .rot span { grid-area: 1 / 1; transition: transform .6s var(--ease), opacity .45s; background: var(--grad-loop); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: sheen 6s linear infinite; }
+.hero h1 .rot span:not(.cur) { opacity: 0; transform: translateY(.35em); }
+.hero h1 .rot span.out { opacity: 0; transform: translateY(-.35em); }
+@keyframes sheen { to { background-position: 200% center; } }
+.deep, .navy {
+  background-color: var(--navy-deep);
+  background-image: radial-gradient(40% 55% at 85% 15%, rgba(232,96,28,.42), transparent 70%), radial-gradient(45% 60% at 10% 90%, rgba(75,63,184,.55), transparent 70%), radial-gradient(35% 45% at 55% 60%, rgba(217,55,110,.28), transparent 70%);
+  background-size: 160% 160%; background-repeat: no-repeat; animation: drift 18s ease-in-out infinite alternate;
+}
+.navy { background-color: var(--navy); }
+@keyframes drift { 0% { background-position: 0% 0%; } 50% { background-position: 60% 40%; } 100% { background-position: 100% 100%; } }
+.ticker { background: var(--grad-loop); background-size: 200% 100%; animation: sheen 10s linear infinite; color: var(--white); overflow: hidden; overflow: clip; padding-block: 18px; }
+.ticker .track { display: flex; width: max-content; animation: tick 38s linear infinite; }
+.ticker ul { list-style: none; padding: 0; display: flex; }
+.ticker li { font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; display: flex; align-items: center; }
+.ticker li::after { content: ""; width: 14px; height: 4px; background: var(--white); margin: 0 28px; transform: skewX(-38deg); }
+@keyframes tick { to { transform: translateX(-50%); } }
+.glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(242,131,74,.35), rgba(217,55,110,.18) 40%, transparent 70%); pointer-events: none; transform: translate(-50%, -50%); left: var(--gx, 70%); top: var(--gy, 30%); transition: left .4s ease-out, top .4s ease-out; z-index: 0; }
+.page-hero .big-k, .cta .bg { --k-leg: url(#kgrad); }
+.anim [data-r] { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
+.anim [data-r].in { opacity: 1; transform: none; }
+.anim .hero h1, .anim .page-hero h1 { animation: rise 1s var(--ease) both; }
+.anim .hero .intro, .anim .page-hero .lead { animation: rise 1s .15s var(--ease) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .deep, .navy, .ticker, .ticker .track, .hero h1 .rot span { animation: none !important; }
+  .anim [data-r] { opacity: 1; transform: none; transition: none; }
+  .anim .hero h1, .anim .page-hero h1, .anim .hero .intro, .anim .page-hero .lead { animation: none; }
+}
 
 /* ===== Film motion design (12 s en boucle) ===== */
 .film-band { background: var(--paper); }
 .film { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 28px; overflow: hidden; overflow: clip; color: var(--white); background-color: var(--navy-deep);
   background-image: radial-gradient(45% 60% at 80% 20%, rgba(232,96,28,.5), transparent 70%), radial-gradient(50% 65% at 15% 85%, rgba(75,63,184,.6), transparent 70%), radial-gradient(35% 45% at 50% 50%, rgba(217,55,110,.3), transparent 70%);
+  background-size: 160% 160%; animation: drift 12s ease-in-out infinite alternate;
   --T: 12s; --kx: -50%; --ky: -50%; --kbx: -128%; --kby: -50%; --ks: .6; }
 @media (max-width: 700px) { .film { aspect-ratio: 4 / 5; --kbx: -50%; --kby: -105%; --ks: .55; } }
 .film *:not(.f-ctrl) { animation-duration: var(--T); animation-iteration-count: infinite; animation-timing-function: var(--ease); }
@@ -491,6 +525,19 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   }
 
 
+  // Mot qui tourne dans le titre
+  var rot = document.getElementById("rot");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (rot && !reduce) {
+    var words = rot.children, i = 0;
+    setInterval(function () {
+      var cur = words[i]; i = (i + 1) % words.length; var nxt = words[i];
+      cur.classList.remove("cur"); cur.classList.add("out");
+      nxt.classList.remove("out"); nxt.classList.add("cur");
+      setTimeout(function () { cur.classList.remove("out"); }, 650);
+    }, 2400);
+  }
+
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
 
@@ -541,6 +588,50 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(m.body);
       a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
     });
+  }
+
+  // Apparition des éléments au défilement
+  (function () {
+    if (reduce || !("IntersectionObserver" in window)) return;
+    var sel = ".manifest h2, .manifest p, .svc-head, .svc, .case, .method li, .sectors > div, .offer li, .scenario, .deliver > div, .next, .eng, .mvv > div, .mission-q, .cta h2, .cta p, .cta .btns, form, .channel, .two-col > h2";
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    function arm(scope) {
+      scope.querySelectorAll(sel).forEach(function (el) {
+        if (el.hasAttribute("data-r")) return;
+        var sibs = Array.prototype.indexOf.call(el.parentNode.children, el);
+        el.setAttribute("data-r", "");
+        el.style.setProperty("--d", Math.min(sibs, 5) * 0.08 + "s");
+        io.observe(el);
+      });
+    }
+    root.classList.add("anim");
+    arm(document);
+    // Les vues masquées sont observées à nouveau quand elles s'affichent
+    window.addEventListener("hashchange", function () { setTimeout(function () { document.querySelectorAll(".view.on [data-r]:not(.in)").forEach(function (el) { io.unobserve(el); io.observe(el); }); }, 30); });
+    document.addEventListener("click", function () { setTimeout(function () { document.querySelectorAll(".view.on [data-r]:not(.in)").forEach(function (el) { io.unobserve(el); io.observe(el); }); }, 30); });
+  })();
+
+  // Halo lumineux qui suit le doigt ou la souris dans les bandeaux sombres
+  document.querySelectorAll(".hero, .page-hero, .cta").forEach(function (sec) {
+    var g = document.createElement("div"); g.className = "glow"; g.setAttribute("aria-hidden", "true");
+    sec.insertBefore(g, sec.firstChild);
+    if (reduce) return;
+    sec.addEventListener("pointermove", function (e) {
+      var r = sec.getBoundingClientRect();
+      g.style.setProperty("--gx", (e.clientX - r.left) + "px");
+      g.style.setProperty("--gy", (e.clientY - r.top) + "px");
+    });
+  });
+
+  // Léger effet de profondeur sur les grands « k »
+  if (!reduce) {
+    var ks = document.querySelectorAll(".cadence, .big-k, .cta .bg");
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      ks.forEach(function (k) { k.style.translate = "0 " + (y * 0.12).toFixed(1) + "px"; });
+    }, { passive: true });
   }
 
   // Lecture / pause du film, et pause automatique quand il sort de l'écran

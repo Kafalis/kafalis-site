@@ -619,6 +619,19 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   }
   burger.addEventListener("click", function () { setMenu(!top.classList.contains("open")); });
 
+  // Arrivée depuis Google : Chrome ajoute « #:~:text=… » à l'adresse et fait défiler la page vers ce texte.
+  // On nettoie l'adresse et on remet la page en haut, sans aucun décalage sur le côté.
+  try {
+    var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    if (nav && nav.name.indexOf(":~:") > -1 && history.replaceState) {
+      history.replaceState(null, "", location.pathname + location.search);
+      var toTop = function () { window.scrollTo(0, 0); };
+      toTop(); window.addEventListener("load", function () { toTop(); setTimeout(toTop, 120); setTimeout(toTop, 400); });
+    }
+  } catch (err) {}
+  // La page ne doit jamais glisser sur le côté
+  window.addEventListener("scroll", function () { if (window.scrollX !== 0) window.scrollTo(0, window.scrollY); }, { passive: true });
+
   var SPA = document.querySelectorAll(".view").length > 1;
   if (SPA) {
     function show(name, scroll) {

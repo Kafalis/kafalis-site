@@ -365,6 +365,36 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   .f-end { opacity: 1; }
   .f-bar, .f-ctrl { display: none; }
 }
+
+/* ===== Inspiration Numérique Awards : menu flottant, boutons en dégradé, grandes cartes ===== */
+.top { position: fixed; left: 0; right: 0; top: calc(env(safe-area-inset-top, 0px) + 12px); background: transparent; color: var(--ink); pointer-events: none; }
+.top .wrap { pointer-events: auto; position: relative; isolation: isolate; width: min(1216px, calc(100% - 24px)); height: 68px; margin: 0 auto; padding: 0 10px 0 24px; border-radius: 999px; }
+.top .wrap::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 14px 34px -14px rgba(11,26,51,.45), inset 0 0 0 1px rgba(19,41,75,.07); }
+.top .logo { color: var(--navy); height: 32px; }
+.menu a:not(.btn) { color: var(--muted); }
+.menu a:not(.btn):hover, .menu a[aria-current="page"] { color: var(--navy); }
+.menu .btn { border-radius: 999px; }
+.burger { background: var(--paper); color: var(--navy); }
+.hero { padding-top: calc(env(safe-area-inset-top, 0px) + 92px + clamp(40px, 7vw, 96px)); }
+.page-hero { padding-top: calc(env(safe-area-inset-top, 0px) + 92px + clamp(40px, 6vw, 88px)); }
+@media (max-width: 900px) {
+  .top .wrap { padding: 0 10px 0 20px; }
+  .menu { inset: calc(env(safe-area-inset-top, 0px) + 92px) 12px auto 12px; max-height: calc(100dvh - 120px - env(safe-area-inset-top, 0px)); background: var(--white); border-radius: 28px; padding: 12px 24px 24px; box-shadow: 0 24px 60px -20px rgba(11,26,51,.5); }
+  .menu a:not(.btn) { color: var(--navy); font-size: 28px; border-bottom-color: var(--line); }
+  .menu a[aria-current="page"] { color: var(--orange); }
+}
+.btn { border-radius: 18px; min-height: 58px; }
+.btn:not(.line):not(.dark) { background: linear-gradient(110deg, #E8601C 0%, #D9376E 55%, #4B3FB8 100%); background-size: 180% auto; background-position: 0% center; transition: background-position .5s var(--ease), box-shadow .3s; box-shadow: 0 14px 30px -14px rgba(217,55,110,.7); }
+.btn:not(.line):not(.dark):hover { background-position: 100% center; }
+.deep .btn.line, .navy .btn.line { background: rgba(255,255,255,.06); }
+@media (max-width: 560px) { .btns { display: grid; } .btns .btn { width: 100%; } }
+.svc-list { border-top: 0; display: grid; gap: 18px; }
+.svc { border-bottom: 0; }
+.svc a { grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); background: var(--white); border-radius: 36px; padding: clamp(28px, 4vw, 48px); box-shadow: 0 24px 50px -34px rgba(19,41,75,.45), inset 0 0 0 1px rgba(19,41,75,.05); }
+.svc h3 { font-size: clamp(30px, 4vw, 52px); }
+.svc .ico { width: 88px; height: 88px; border-radius: 26px; display: grid; place-items: center; color: var(--white); background: linear-gradient(135deg, #E8601C, #D9376E 55%, #4B3FB8); box-shadow: 0 16px 30px -14px rgba(217,55,110,.7); }
+.svc .ico svg { width: 40px; height: 40px; }
+@media (max-width: 760px) { .svc a { grid-template-columns: 1fr; gap: 18px; } .svc .ico { width: 76px; height: 76px; border-radius: 22px; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">

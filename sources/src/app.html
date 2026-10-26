@@ -352,6 +352,55 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   .anim [data-r] { opacity: 1; transform: none; transition: none; }
   .anim .hero h1, .anim .page-hero h1, .anim .hero .intro, .anim .page-hero .lead, .anim .page-hero .promise { animation: none; }
 }
+
+/* ===== Film motion design (12 s en boucle) ===== */
+.film-band { background: var(--paper); }
+.film { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 28px; overflow: hidden; color: var(--white); background-color: var(--navy-deep);
+  background-image: radial-gradient(45% 60% at 80% 20%, rgba(232,96,28,.5), transparent 70%), radial-gradient(50% 65% at 15% 85%, rgba(75,63,184,.6), transparent 70%), radial-gradient(35% 45% at 50% 50%, rgba(217,55,110,.3), transparent 70%);
+  background-size: 160% 160%; animation: drift 12s ease-in-out infinite alternate;
+  --T: 12s; --kx: -50%; --ky: -50%; --kbx: -128%; --kby: -50%; --ks: .6; }
+@media (max-width: 700px) { .film { aspect-ratio: 4 / 5; --kbx: -50%; --kby: -105%; --ks: .55; } }
+.film * { animation-duration: var(--T); animation-iteration-count: infinite; animation-timing-function: var(--ease); }
+.film.paused, .film.paused * { animation-play-state: paused !important; }
+.f-k { position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; transform: translate(var(--kx), var(--ky)); animation-name: fk; }
+@media (max-width: 700px) { .f-k { width: 46%; } }
+.f-k svg { width: 100%; height: 100%; overflow: visible; }
+.f-stem { fill: var(--white); transform-box: fill-box; transform-origin: 50% 100%; animation-name: fstem; }
+.f-leg { fill: url(#kgrad); animation-name: fleg; }
+.f-dot { fill: url(#kgrad); animation-name: fdot; }
+@keyframes fk { 0%, 30% { transform: translate(var(--kx), var(--ky)) scale(1); opacity: 1; } 36%, 66% { transform: translate(var(--kbx), var(--kby)) scale(var(--ks)); opacity: 1; } 71%, 100% { transform: translate(var(--kbx), var(--kby)) scale(var(--ks)); opacity: 0; } }
+@keyframes fstem { 0%, 5% { transform: scaleY(0); } 13%, 100% { transform: scaleY(1); } }
+@keyframes fleg { 0%, 11% { transform: translateX(-30px); opacity: 0; } 18% { transform: translateX(3px); opacity: 1; } 21% { transform: translateX(0); } 24% { transform: translateX(7px); } 28%, 100% { transform: translateX(0); opacity: 1; } }
+@keyframes fdot { 0% { transform: translateY(-90px); opacity: 0; } 2% { opacity: 1; } 8% { transform: translateY(0); } 11% { transform: translateY(-14px); } 14% { transform: translateY(0); } 22% { transform: translate(0, 0); } 25% { transform: translate(7px, -10px); } 28%, 100% { transform: translate(0, 0); opacity: 1; } }
+.f-words { position: absolute; left: 47%; right: 6%; top: 50%; height: 0; }
+@media (max-width: 700px) { .f-words { left: 8%; right: 8%; top: 66%; text-align: center; } }
+.f-word { position: absolute; left: 0; right: 0; top: 0; transform: translateY(-50%); font-weight: 600; letter-spacing: -.035em; line-height: 1; font-size: 7.2cqw; opacity: 0; white-space: nowrap; }
+@media (max-width: 700px) { .f-word { font-size: 11cqw; } }
+.f-word span { display: block; font-size: .32em; font-weight: 500; letter-spacing: 0; color: var(--on-navy-muted); margin-top: .5em; line-height: 1.3; }
+.f-word b { font-weight: 600; background: var(--grad-loop); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.f-word:nth-child(1) { animation-name: fw1; } .f-word:nth-child(2) { animation-name: fw2; } .f-word:nth-child(3) { animation-name: fw3; }
+@keyframes fw1 { 0%, 35% { opacity: 0; transform: translateY(-20%); } 38%, 44% { opacity: 1; transform: translateY(-50%); } 47%, 100% { opacity: 0; transform: translateY(-80%); } }
+@keyframes fw2 { 0%, 46% { opacity: 0; transform: translateY(-20%); } 49%, 55% { opacity: 1; transform: translateY(-50%); } 58%, 100% { opacity: 0; transform: translateY(-80%); } }
+@keyframes fw3 { 0%, 57% { opacity: 0; transform: translateY(-20%); } 60%, 66% { opacity: 1; transform: translateY(-50%); } 69%, 100% { opacity: 0; transform: translateY(-80%); } }
+.f-end { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 3cqw; text-align: center; padding: 0 6%; opacity: 0; animation-name: fend; }
+.f-end .logo { height: auto; width: 46cqw; color: var(--white); }
+@media (max-width: 700px) { .f-end .logo { width: 70cqw; } }
+.f-end p { font-size: 3.4cqw; font-weight: 500; letter-spacing: -.01em; }
+@media (max-width: 700px) { .f-end p { font-size: 6cqw; } }
+.f-end p b { background: var(--grad-loop); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+@keyframes fend { 0%, 71% { opacity: 0; transform: scale(.94); } 76%, 94% { opacity: 1; transform: scale(1); } 99%, 100% { opacity: 0; transform: scale(1.03); } }
+.f-bar { position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: var(--grad); transform-origin: left; animation-name: fbar; animation-timing-function: linear !important; }
+@keyframes fbar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.f-ctrl { position: absolute; right: 16px; bottom: 18px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.14); color: var(--white); display: grid; place-items: center; cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 2; }
+.f-ctrl:hover { background: rgba(255,255,255,.24); }
+.f-ctrl svg { width: 18px; height: 18px; }
+.f-tag { position: absolute; left: 20px; top: 18px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--on-navy-muted); z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  .film, .film * { animation: none !important; }
+  .f-k, .f-words { display: none; }
+  .f-end { opacity: 1; }
+  .f-bar, .f-ctrl { display: none; }
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -414,6 +463,29 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       <ul><li>Dégustations</li><li>Animations en points de vente</li><li>Lancements de produits</li><li>Cérémonies officielles</li><li>Conférences</li><li>Stands de marque</li><li>Bâches et kakemonos</li><li>Goodies</li><li>Décoration</li><li>Son, lumière, écrans</li></ul>
     </div>
   </div>
+
+  <section class="band film-band" aria-labelledby="film-title">
+    <div class="wrap">
+      <div class="svc-head">
+        <div class="stack"><p class="label">Kafalis en mouvement</p><h2 class="h2" id="film-title">Une marque qui avance<br>d’un pas.</h2></div>
+        <p class="lead" style="max-width:40ch">Activer, organiser, imprimer : trois métiers pour une seule idée, faire avancer votre marque.</p>
+      </div>
+      <div class="film" id="film" role="img" aria-label="Animation : le k de Kafalis se construit et avance d’un pas, puis les mots On active, On organise, On imprime, et le logo Kafalis Group avec le slogan Donner vie aux idées, créer l’impact.">
+        <span class="f-tag" aria-hidden="true">Kafalis Group</span>
+        <div class="f-k" aria-hidden="true">
+          <svg viewBox="-6 -84 92 92"><path class="f-stem" d="M6.1 0V-72H17.1V0Z"/><path class="f-leg" d="M23.15 -22.56 L47.15 -48.00 L62.27 -48.00 L39.82 -24.20 L73.79 0 L54.83 0 Z"/><circle class="f-dot" cx="69.99" cy="-62.65" r="6.82"/></svg>
+        </div>
+        <div class="f-words" aria-hidden="true">
+          <p class="f-word"><b>On active.</b><span>Dégustations, animations, points de vente</span></p>
+          <p class="f-word"><b>On organise.</b><span>Lancements, cérémonies, conférences</span></p>
+          <p class="f-word"><b>On imprime.</b><span>Bâches, kakemonos, flyers, goodies</span></p>
+        </div>
+        <div class="f-end" aria-hidden="true">__LOGO__<p>Donner vie aux idées. <b>Créer l’impact.</b></p></div>
+        <span class="f-bar" aria-hidden="true"></span>
+        <button class="f-ctrl" id="film-ctrl" type="button" aria-label="Mettre l’animation en pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+      </div>
+    </div>
+  </section>
 
   <section class="band white">
     <div class="wrap manifest">
@@ -734,30 +806,39 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   }
   burger.addEventListener("click", function () { setMenu(!top.classList.contains("open")); });
 
-  function show(name, scroll) {
-    if (VIEWS.indexOf(name) < 0) name = "accueil";
-    document.querySelectorAll(".view").forEach(function (v) { v.classList.toggle("on", v.getAttribute("data-view") === name); });
-    document.querySelectorAll(".menu a").forEach(function (a) {
-      if (a.getAttribute("href") === "#" + name && !a.classList.contains("btn")) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  var SPA = document.querySelectorAll(".view").length > 1;
+  if (SPA) {
+    function show(name, scroll) {
+      if (VIEWS.indexOf(name) < 0) name = "accueil";
+      document.querySelectorAll(".view").forEach(function (v) { v.classList.toggle("on", v.getAttribute("data-view") === name); });
+      document.querySelectorAll(".menu a").forEach(function (a) {
+        if (a.getAttribute("href") === "#" + name && !a.classList.contains("btn")) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+      });
+      document.title = TITLES[name];
+      setMenu(false);
+      if (scroll) window.scrollTo(0, 0);
+    }
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var name = a.getAttribute("href").slice(1);
+      if (VIEWS.indexOf(name) < 0) return;
+      e.preventDefault();
+      var need = a.getAttribute("data-need");
+      if (need) document.querySelectorAll('input[name="besoin"]').forEach(function (r) { r.checked = (r.value === need); });
+      try { history.pushState(null, "", "#" + name); } catch (err) {}
+      show(name, true);
     });
-    document.title = TITLES[name];
-    setMenu(false);
-    if (scroll) window.scrollTo(0, 0);
+    window.addEventListener("hashchange", function () { show(location.hash.slice(1), true); });
+    window.addEventListener("popstate", function () { show(location.hash.slice(1), true); });
+    show(location.hash.slice(1), false);
+  } else {
+    // Site en plusieurs pages : le besoin arrive par l’adresse, ex. /contact/?besoin=Événement
+    try {
+      var q = new URLSearchParams(location.search).get("besoin");
+      if (q) document.querySelectorAll('input[name="besoin"]').forEach(function (r) { r.checked = (r.value === q); });
+    } catch (err) {}
   }
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var name = a.getAttribute("href").slice(1);
-    if (VIEWS.indexOf(name) < 0) return;
-    e.preventDefault();
-    var need = a.getAttribute("data-need");
-    if (need) document.querySelectorAll('input[name="besoin"]').forEach(function (r) { r.checked = (r.value === need); });
-    try { history.pushState(null, "", "#" + name); } catch (err) {}
-    show(name, true);
-  });
-  window.addEventListener("hashchange", function () { show(location.hash.slice(1), true); });
-  window.addEventListener("popstate", function () { show(location.hash.slice(1), true); });
-  show(location.hash.slice(1), false);
 
   // Mot qui tourne dans le titre
   var rot = document.getElementById("rot");
@@ -777,49 +858,52 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 
   if (WHATSAPP) {
     var wl = document.getElementById("wa-link");
-    wl.href = "https://wa.me/" + WHATSAPP;
-    wl.textContent = "+" + WHATSAPP.replace(/^(\d{3})(\d{3})(\d{2})(\d{2})(\d{2})$/, "$1 $2 $3 $4 $5");
-    document.getElementById("wa-channel").hidden = false;
-    document.getElementById("send-wa").hidden = false;
+    if (wl) { wl.href = "https://wa.me/" + WHATSAPP;
+    wl.textContent = "+" + WHATSAPP.replace(/^(\d{3})(\d{3})(\d{2})(\d{2})(\d{2})$/, "$1 $2 $3 $4 $5"); }
+    var wc = document.getElementById("wa-channel"), sw = document.getElementById("send-wa");
+    if (wc) wc.hidden = false;
+    if (sw) sw.hidden = false;
   }
 
-  var copyBtn = document.getElementById("copy-mail");
-  copyBtn.addEventListener("click", function () {
-    var done = function () { copyBtn.textContent = "Copié"; setTimeout(function () { copyBtn.textContent = "Copier"; }, 1800); };
-    var fallback = function () {
-      var r = document.createRange(); r.selectNodeContents(document.getElementById("mail-link"));
-      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = "Sélectionné";
-    };
-    try { navigator.clipboard.writeText(EMAIL).then(done, fallback); } catch (e) { fallback(); }
-  });
+  if (document.getElementById("devis")) {
+    var copyBtn = document.getElementById("copy-mail");
+    copyBtn.addEventListener("click", function () {
+      var done = function () { copyBtn.textContent = "Copié"; setTimeout(function () { copyBtn.textContent = "Copier"; }, 1800); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(document.getElementById("mail-link"));
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = "Sélectionné";
+      };
+      try { navigator.clipboard.writeText(EMAIL).then(done, fallback); } catch (e) { fallback(); }
+    });
 
-  var note = document.getElementById("form-note");
-  function val(id) { return document.getElementById(id).value.trim(); }
-  function compose() {
-    if (!val("f-nom") || !val("f-msg")) {
-      note.textContent = "Indiquez au moins votre nom et une description de votre projet.";
-      document.getElementById(val("f-nom") ? "f-msg" : "f-nom").focus();
-      return null;
+    var note = document.getElementById("form-note");
+    function val(id) { return document.getElementById(id).value.trim(); }
+    function compose() {
+      if (!val("f-nom") || !val("f-msg")) {
+        note.textContent = "Indiquez au moins votre nom et une description de votre projet.";
+        document.getElementById(val("f-nom") ? "f-msg" : "f-nom").focus();
+        return null;
+      }
+      var besoin = (document.querySelector('input[name="besoin"]:checked') || {}).value || "";
+      var lines = ["Bonjour Kafalis Group,", "", val("f-msg"), "", "Besoin : " + besoin, "Nom : " + val("f-nom")];
+      if (val("f-org")) lines.push("Organisation : " + val("f-org"));
+      if (val("f-tel")) lines.push("Téléphone : " + val("f-tel"));
+      if (val("f-date")) lines.push("Date souhaitée : " + val("f-date"));
+      return { subject: "Demande de devis : " + besoin, body: lines.join("\n") };
     }
-    var besoin = (document.querySelector('input[name="besoin"]:checked') || {}).value || "";
-    var lines = ["Bonjour Kafalis Group,", "", val("f-msg"), "", "Besoin : " + besoin, "Nom : " + val("f-nom")];
-    if (val("f-org")) lines.push("Organisation : " + val("f-org"));
-    if (val("f-tel")) lines.push("Téléphone : " + val("f-tel"));
-    if (val("f-date")) lines.push("Date souhaitée : " + val("f-date"));
-    return { subject: "Demande de devis : " + besoin, body: lines.join("\n") };
+    document.getElementById("devis").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var m = compose(); if (!m) return;
+      window.location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent(m.subject) + "&body=" + encodeURIComponent(m.body);
+      note.textContent = "Votre messagerie devrait s’ouvrir avec le message prêt. Sinon, écrivez-nous à " + EMAIL + ".";
+    });
+    document.getElementById("send-wa").addEventListener("click", function () {
+      var m = compose(); if (!m) return;
+      var a = document.createElement("a");
+      a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(m.body);
+      a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
+    });
   }
-  document.getElementById("devis").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var m = compose(); if (!m) return;
-    window.location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent(m.subject) + "&body=" + encodeURIComponent(m.body);
-    note.textContent = "Votre messagerie devrait s’ouvrir avec le message prêt. Sinon, écrivez-nous à " + EMAIL + ".";
-  });
-  document.getElementById("send-wa").addEventListener("click", function () {
-    var m = compose(); if (!m) return;
-    var a = document.createElement("a");
-    a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(m.body);
-    a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
-  });
 
   // Apparition des éléments au défilement
   (function () {
@@ -863,6 +947,25 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       var y = window.scrollY;
       ks.forEach(function (k) { k.style.translate = "0 " + (y * 0.12).toFixed(1) + "px"; });
     }, { passive: true });
+  }
+
+  // Lecture / pause du film, et pause automatique quand il sort de l'écran
+  var film = document.getElementById("film"), fc = document.getElementById("film-ctrl");
+  if (film && fc) {
+    var userPaused = false;
+    var PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+    var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+    fc.addEventListener("click", function () {
+      userPaused = !film.classList.contains("paused");
+      film.classList.toggle("paused", userPaused);
+      fc.innerHTML = userPaused ? PLAY : PAUSE;
+      fc.setAttribute("aria-label", userPaused ? "Lire l’animation" : "Mettre l’animation en pause");
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) {
+        if (!userPaused) film.classList.toggle("paused", !en[0].isIntersecting);
+      }).observe(film);
+    }
   }
 })();
 </script>

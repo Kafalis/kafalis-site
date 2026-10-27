@@ -28,6 +28,31 @@ def nxt(cur):
     links=''.join(f'<a href="#{k}">{names[k]}</a>' for k in names if k!=cur)
     cards=f'<p>Nos autres métiers</p>{links}'
     return f'<section class="band"><div class="wrap"><div class="next">{cards}</div></div></section>\n  '+CTA
+FILMS={
+ 'accueil':('Nos métiers en 12 secondes',[('On active.','Dégustations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
+ 'activation':('Une activation en 12 secondes',[('On briefe.','Animateurs formés à votre produit'),('On anime.','Dégustations en points de vente et marchés'),('On mesure.','Photos, quantités, retours clients')]),
+ 'evenementiel':('Un événement en 12 secondes',[('On prépare.','Lieu, décor, son, écrans'),('On installe.','Montage, accueil, protocole'),('On reçoit.','Le jour J, tout est coordonné')]),
+ 'impression':('Une commande en 12 secondes',[('On conçoit.','Formats, papiers, finitions'),('On imprime.','Bon à tirer validé par vous'),('On livre.','Contrôlé, à la date convenue')]),
+ 'agence':('Kafalis en 12 secondes',[('On active.','Dégustations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
+}
+def film(k):
+    title,words=FILMS[k]
+    ws=''.join(f'<p class="f-word"><b>{w}</b><span>{t}</span></p>' for w,t in words)
+    label='Animation : le k de Kafalis se construit et avance d’un pas, puis les mots '+', '.join(w.rstrip('.') for w,_ in words)+', et le logo Kafalis Group avec le slogan Donner vie aux idées, créer l’impact.'
+    return f'''<section class="band film-band" aria-labelledby="film-{k}">
+    <div class="wrap">
+      <div class="svc-head"><h2 class="h2" id="film-{k}">{title}</h2></div>
+      <div class="film" role="img" aria-label="{label}">
+        <div class="f-k" aria-hidden="true"><svg viewBox="-6 -84 92 92"><path class="f-stem" d="M6.1 0V-72H17.1V0Z"/><path class="f-leg" d="M23.15 -22.56 L47.15 -48.00 L62.27 -48.00 L39.82 -24.20 L73.79 0 L54.83 0 Z"/><circle class="f-dot" cx="69.99" cy="-62.65" r="6.82"/></svg></div>
+        <div class="f-words" aria-hidden="true">{ws}</div>
+        <div class="f-end" aria-hidden="true">__LOGO__<p>Donner vie aux idées. <b>Créer l’impact.</b></p></div>
+        <span class="f-bar" aria-hidden="true"></span>
+        <button class="f-ctrl" type="button" aria-label="Mettre l’animation en pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+      </div>
+    </div>
+  </section>'''
+for k in FILMS: body=body.replace(f'__FILM_{k}__',film(k))
+assert '__FILM' not in body
 body=body.replace('__LOGO__',logo).replace('__CTA__',CTA).replace('__DELIVER__',DELIVER)
 for k in names: body=body.replace(f'__NEXT_{k}__',nxt(k))
 assert '__NEXT' not in body and '__CTA' not in body

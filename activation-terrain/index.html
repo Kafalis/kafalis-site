@@ -292,20 +292,18 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 .hero h1 .rot span:not(.cur) { opacity: 0; transform: translateY(.35em); }
 .hero h1 .rot span.out { opacity: 0; transform: translateY(-.35em); }
 @keyframes sheen { to { background-position: 200% center; } }
-.deep, .navy {
-  background-color: var(--navy-deep);
-  background-image: radial-gradient(40% 55% at 85% 15%, rgba(232,96,28,.42), transparent 70%), radial-gradient(45% 60% at 10% 90%, rgba(75,63,184,.55), transparent 70%), radial-gradient(35% 45% at 55% 60%, rgba(217,55,110,.28), transparent 70%);
-  background-size: 160% 160%; background-repeat: no-repeat; animation: drift 18s ease-in-out infinite alternate;
-}
+/* Fluidité : le dégradé bouge par « transform » sur un calque à part (calculé par la carte graphique), jamais en repeignant le fond. */
+.deep, .navy { background-color: var(--navy-deep); position: relative; isolation: isolate; overflow: hidden; overflow: clip; }
 .navy { background-color: var(--navy); }
-@keyframes drift { 0% { background-position: 0% 0%; } 50% { background-position: 60% 40%; } 100% { background-position: 100% 100%; } }
-.ticker { background: var(--grad-loop); background-size: 200% 100%; animation: sheen 10s linear infinite; color: var(--white); overflow: hidden; overflow: clip; padding-block: 18px; }
-.ticker .track { display: flex; width: max-content; animation: tick 38s linear infinite; }
+.deep::before, .navy::before, .film::before { content: ""; position: absolute; inset: -25%; z-index: -1; pointer-events: none; background-image: radial-gradient(40% 55% at 85% 15%, rgba(232,96,28,.42), transparent 70%), radial-gradient(45% 60% at 10% 90%, rgba(75,63,184,.55), transparent 70%), radial-gradient(35% 45% at 55% 60%, rgba(217,55,110,.28), transparent 70%); animation: drift 18s ease-in-out infinite alternate; will-change: transform; }
+@keyframes drift { 0% { transform: translate3d(-8%, -6%, 0); } 50% { transform: translate3d(4%, 3%, 0); } 100% { transform: translate3d(8%, 6%, 0); } }
+.ticker { background: linear-gradient(110deg, #E8601C 0%, #D9376E 50%, #4B3FB8 100%); color: var(--white); overflow: hidden; overflow: clip; padding-block: 18px; }
+.ticker .track { display: flex; width: max-content; animation: tick 38s linear infinite; will-change: transform; }
 .ticker ul { list-style: none; padding: 0; display: flex; }
 .ticker li { font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; display: flex; align-items: center; }
 .ticker li::after { content: ""; width: 14px; height: 4px; background: var(--white); margin: 0 28px; transform: skewX(-38deg); }
 @keyframes tick { to { transform: translateX(-50%); } }
-.glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(242,131,74,.35), rgba(217,55,110,.18) 40%, transparent 70%); pointer-events: none; transform: translate(-50%, -50%); left: var(--gx, 70%); top: var(--gy, 30%); transition: left .4s ease-out, top .4s ease-out; z-index: 0; }
+.glow { position: absolute; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(242,131,74,.35), rgba(217,55,110,.18) 40%, transparent 70%); pointer-events: none; transform: translate3d(var(--gx, 70vw), var(--gy, 30%), 0); transition: transform .4s ease-out; will-change: transform; z-index: 0; }
 .page-hero .big-k, .cta .bg { --k-leg: url(#kgrad); }
 .anim [data-r] { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
 .anim [data-r].in { opacity: 1; transform: none; }
@@ -313,18 +311,17 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 .anim .hero .intro, .anim .page-hero .lead { animation: rise 1s .15s var(--ease) both; }
 @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
-  .deep, .navy, .ticker, .ticker .track, .hero h1 .rot span { animation: none !important; }
+  .deep::before, .navy::before, .ticker .track, .hero h1 .rot span { animation: none !important; }
   .anim [data-r] { opacity: 1; transform: none; transition: none; }
   .anim .hero h1, .anim .page-hero h1, .anim .hero .intro, .anim .page-hero .lead { animation: none; }
 }
 
 /* ===== Film motion design (12 s en boucle) ===== */
 .film-band { background: var(--paper); }
-.film { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 28px; overflow: hidden; overflow: clip; color: var(--white); background-color: var(--navy-deep);
-  background-image: radial-gradient(45% 60% at 80% 20%, rgba(232,96,28,.5), transparent 70%), radial-gradient(50% 65% at 15% 85%, rgba(75,63,184,.6), transparent 70%), radial-gradient(35% 45% at 50% 50%, rgba(217,55,110,.3), transparent 70%);
-  background-size: 160% 160%; animation: drift 12s ease-in-out infinite alternate;
+.film { position: relative; container-type: inline-size; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 28px; overflow: hidden; overflow: clip; color: var(--white); background-color: var(--navy-deep); isolation: isolate;
   --T: 12s; --kx: -50%; --ky: -50%; --kbx: -128%; --kby: -50%; --ks: .6; }
 @media (max-width: 700px) { .film { aspect-ratio: 4 / 5; --kbx: -50%; --kby: -105%; --ks: .55; } }
+.film::before { animation-duration: 12s; }
 .film *:not(.f-ctrl) { animation-duration: var(--T); animation-iteration-count: infinite; animation-timing-function: var(--ease); }
 .film.paused, .film.paused * { animation-play-state: paused !important; }
 .f-k { position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; transform: translate(var(--kx), var(--ky)); animation-name: fk; }
@@ -364,7 +361,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 /* ===== Inspiration Numérique Awards : menu flottant, boutons en dégradé, grandes cartes ===== */
 .top { position: fixed; left: 0; right: 0; top: calc(env(safe-area-inset-top, 0px) + 12px); background: transparent; color: var(--ink); pointer-events: none; }
 .top .wrap { pointer-events: auto; position: relative; isolation: isolate; width: min(1216px, calc(100% - 24px)); height: 68px; margin: 0 auto; padding: 0 10px 0 24px; border-radius: 999px; }
-.top .wrap::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 14px 34px -14px rgba(11,26,51,.45), inset 0 0 0 1px rgba(19,41,75,.07); }
+.top .wrap::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 14px 34px -14px rgba(11,26,51,.45), inset 0 0 0 1px rgba(19,41,75,.07); }
 .top .logo { color: var(--navy); height: 32px; }
 .menu a:not(.btn) { color: var(--muted); }
 .menu a:not(.btn):hover, .menu a[aria-current="page"] { color: var(--navy); }
@@ -422,6 +419,18 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       <h1>Activation<br>terrain</h1>
       <p class="lead">Votre produit présent, expliqué et goûté là où vos clients achètent : en point de vente, au marché, dans la rue et dans les lieux publics autorisés.</p>
       <div class="btns" style="margin-top:8px"><a class="btn" href="/contact/?besoin=Activation+terrain">Préparer une activation</a></div>
+    </div>
+  </section>
+  <section class="band film-band" aria-labelledby="film-activation">
+    <div class="wrap">
+      <div class="svc-head"><h2 class="h2" id="film-activation">Une activation en 12 secondes</h2></div>
+      <div class="film" role="img" aria-label="Animation : le k de Kafalis se construit et avance d’un pas, puis les mots On briefe, On anime, On mesure, et le logo Kafalis Group avec le slogan Donner vie aux idées, créer l’impact.">
+        <div class="f-k" aria-hidden="true"><svg viewBox="-6 -84 92 92"><path class="f-stem" d="M6.1 0V-72H17.1V0Z"/><path class="f-leg" d="M23.15 -22.56 L47.15 -48.00 L62.27 -48.00 L39.82 -24.20 L73.79 0 L54.83 0 Z"/><circle class="f-dot" cx="69.99" cy="-62.65" r="6.82"/></svg></div>
+        <div class="f-words" aria-hidden="true"><p class="f-word"><b>On briefe.</b><span>Animateurs formés à votre produit</span></p><p class="f-word"><b>On anime.</b><span>Dégustations en points de vente et marchés</span></p><p class="f-word"><b>On mesure.</b><span>Photos, quantités, retours clients</span></p></div>
+        <div class="f-end" aria-hidden="true"><svg class="logo" role="img" aria-label="Kafalis Group" xmlns="http://www.w3.org/2000/svg" viewBox="0.00 -72.00 318.59 109.00"><path d="M6.1000000000000005 0.0V-72.0H17.1V0.0Z M104.59322475646817 1.0Q98.09322475646817 1.0 92.84322475646817 -2.3000000000000003Q87.59322475646817 -5.6000000000000005 84.54322475646816 -11.250000000000002Q81.49322475646817 -16.900000000000002 81.49322475646817 -23.900000000000002Q81.49322475646817 -31.0 84.54322475646816 -36.650000000000006Q87.59322475646817 -42.300000000000004 92.84322475646817 -45.650000000000006Q98.09322475646817 -49.0 104.59322475646817 -49.0Q110.09322475646817 -49.0 114.34322475646817 -46.650000000000006Q118.59322475646817 -44.300000000000004 121.09322475646817 -40.2Q123.59322475646817 -36.1 123.59322475646817 -30.900000000000002V-17.1Q123.59322475646817 -11.9 121.14322475646817 -7.800000000000001Q118.69322475646817 -3.7 114.39322475646817 -1.35Q110.09322475646817 1.0 104.59322475646817 1.0ZM106.39322475646817 -9.4Q112.49322475646818 -9.4 116.24322475646818 -13.5Q119.99322475646818 -17.6 119.99322475646818 -24.0Q119.99322475646818 -28.3 118.29322475646818 -31.6Q116.59322475646817 -34.9 113.54322475646818 -36.75Q110.49322475646818 -38.6 106.39322475646817 -38.6Q102.39322475646817 -38.6 99.34322475646817 -36.75Q96.29322475646818 -34.9 94.54322475646818 -31.6Q92.79322475646818 -28.3 92.79322475646818 -24.0Q92.79322475646818 -19.700000000000003 94.54322475646818 -16.400000000000002Q96.29322475646818 -13.100000000000001 99.34322475646817 -11.25Q102.39322475646817 -9.4 106.39322475646817 -9.4ZM119.29322475646818 0.0V-12.9L121.19322475646817 -24.6L119.29322475646818 -36.2V-48.0H130.2932247564682V0.0Z M149.59322475646815 0.0V-54.300000000000004Q149.59322475646815 -59.800000000000004 152.04322475646813 -64.0Q154.49322475646815 -68.2 158.84322475646815 -70.6Q163.19322475646817 -73.0 168.89322475646816 -73.0Q173.29322475646816 -73.0 176.39322475646816 -71.5Q179.49322475646815 -70.0 182.19322475646817 -67.2L175.09322475646815 -60.1Q173.89322475646816 -61.300000000000004 172.49322475646815 -62.0Q171.09322475646815 -62.7 168.89322475646816 -62.7Q164.89322475646816 -62.7 162.74322475646815 -60.550000000000004Q160.59322475646815 -58.400000000000006 160.59322475646815 -54.400000000000006V0.0ZM138.09322475646815 -38.0V-48.0H175.09322475646815V-38.0Z M204.89322475646816 1.0Q198.39322475646816 1.0 193.14322475646816 -2.3000000000000003Q187.89322475646816 -5.6000000000000005 184.84322475646815 -11.250000000000002Q181.79322475646816 -16.900000000000002 181.79322475646816 -23.900000000000002Q181.79322475646816 -31.0 184.84322475646815 -36.650000000000006Q187.89322475646816 -42.300000000000004 193.14322475646816 -45.650000000000006Q198.39322475646816 -49.0 204.89322475646816 -49.0Q210.39322475646816 -49.0 214.64322475646816 -46.650000000000006Q218.89322475646816 -44.300000000000004 221.39322475646816 -40.2Q223.89322475646816 -36.1 223.89322475646816 -30.900000000000002V-17.1Q223.89322475646816 -11.9 221.44322475646817 -7.800000000000001Q218.99322475646818 -3.7 214.69322475646817 -1.35Q210.39322475646816 1.0 204.89322475646816 1.0ZM206.69322475646817 -9.4Q212.79322475646816 -9.4 216.54322475646816 -13.5Q220.29322475646816 -17.6 220.29322475646816 -24.0Q220.29322475646816 -28.3 218.59322475646815 -31.6Q216.89322475646816 -34.9 213.84322475646815 -36.75Q210.79322475646816 -38.6 206.69322475646817 -38.6Q202.69322475646817 -38.6 199.64322475646816 -36.75Q196.59322475646817 -34.9 194.84322475646817 -31.6Q193.09322475646817 -28.3 193.09322475646817 -24.0Q193.09322475646817 -19.700000000000003 194.84322475646817 -16.400000000000002Q196.59322475646817 -13.100000000000001 199.64322475646816 -11.25Q202.69322475646817 -9.4 206.69322475646817 -9.4ZM219.59322475646817 0.0V-12.9L221.49322475646818 -24.6L219.59322475646817 -36.2V-48.0H230.59322475646817V0.0Z M238.29322475646816 0.0V-72.0H249.29322475646816V0.0Z M257.4932247564682 0.0V-48.0H268.4932247564682V0.0Z M296.39322475646816 1.0Q292.39322475646816 1.0 288.6932247564681 -0.050000000000000044Q284.9932247564681 -1.1 281.89322475646816 -3.05Q278.79322475646813 -5.0 276.4932247564681 -7.800000000000001L283.4932247564681 -14.8Q285.9932247564681 -11.9 289.2432247564681 -10.45Q292.4932247564681 -9.0 296.59322475646815 -9.0Q300.29322475646813 -9.0 302.1932247564681 -10.100000000000001Q304.09322475646815 -11.200000000000001 304.09322475646815 -13.3Q304.09322475646815 -15.5 302.29322475646813 -16.700000000000003Q300.4932247564681 -17.900000000000002 297.64322475646816 -18.75Q294.79322475646813 -19.6 291.64322475646816 -20.5Q288.4932247564681 -21.400000000000002 285.64322475646816 -22.950000000000003Q282.79322475646813 -24.5 280.9932247564682 -27.200000000000003Q279.19322475646817 -29.900000000000002 279.19322475646817 -34.2Q279.19322475646817 -38.800000000000004 281.34322475646815 -42.10000000000001Q283.4932247564681 -45.400000000000006 287.4432247564681 -47.2Q291.39322475646816 -49.0 296.89322475646816 -49.0Q302.69322475646817 -49.0 307.14322475646816 -46.95Q311.59322475646815 -44.900000000000006 314.59322475646815 -40.800000000000004L307.59322475646815 -33.800000000000004Q305.4932247564681 -36.4 302.79322475646813 -37.7Q300.09322475646815 -39.0 296.59322475646815 -39.0Q293.29322475646813 -39.0 291.4932247564682 -38.0Q289.69322475646817 -37.0 289.69322475646817 -35.1Q289.69322475646817 -33.1 291.4932247564682 -32.0Q293.29322475646813 -30.900000000000002 296.14322475646816 -30.1Q298.9932247564681 -29.3 302.14322475646816 -28.35Q305.29322475646813 -27.400000000000002 308.14322475646816 -25.75Q310.9932247564681 -24.1 312.79322475646813 -21.35Q314.59322475646815 -18.6 314.59322475646815 -14.200000000000001Q314.59322475646815 -7.2 309.6932247564681 -3.1Q304.79322475646813 1.0 296.39322475646816 1.0Z" fill="currentColor"/><path d="M23.15 -22.56 L47.15 -48.00 L62.27 -48.00 L39.82 -24.20 L73.79 0 L54.83 0 Z" fill="#E8601C"/><circle cx="262.99" cy="-65.05" r="6.82" fill="#E8601C"/><path transform="translate(225.73 28)" d="M7.89 6.27Q5.685 6.27 3.9974999999999996 5.463749999999999Q2.31 4.6575 1.275 3.1799999999999997L3.0375 1.4175Q3.8925 2.52 5.092499999999999 3.105Q6.2924999999999995 3.69 7.9425 3.69Q10.125 3.69 11.403749999999999 2.5425Q12.6825 1.395 12.6825 -0.5775V-4.109999999999999L13.1775 -7.305L12.6825 -10.5V-14.25H15.389999999999999V-0.5775Q15.389999999999999 1.4775 14.445 3.01125Q13.5 4.545 11.80875 5.4075Q10.1175 6.27 7.89 6.27ZM7.89 -0.22499999999999998Q5.9475 -0.22499999999999998 4.395 -1.1625Q2.8425 -2.1 1.9499999999999997 -3.7350000000000003Q1.0574999999999999 -5.37 1.0574999999999999 -7.41Q1.0574999999999999 -9.442499999999999 1.94625 -11.055Q2.835 -12.667499999999999 4.387499999999999 -13.608749999999999Q5.9399999999999995 -14.549999999999999 7.875 -14.549999999999999Q9.555 -14.549999999999999 10.848749999999999 -13.88625Q12.1425 -13.2225 12.903749999999999 -12.04125Q13.665 -10.86 13.747499999999999 -9.27V-5.4975Q13.657499999999999 -3.9375 12.884999999999998 -2.745Q12.112499999999999 -1.5525 10.826249999999998 -0.8887499999999999Q9.54 -0.22499999999999998 7.89 -0.22499999999999998ZM8.415 -2.7824999999999998Q9.7425 -2.7824999999999998 10.743749999999999 -3.3562499999999997Q11.745 -3.9299999999999997 12.29625 -4.965Q12.8475 -6.0 12.8475 -7.387499999999999Q12.8475 -8.7675 12.2925 -9.79875Q11.737499999999999 -10.83 10.736249999999998 -11.411249999999999Q9.735 -11.9925 8.4 -11.9925Q7.0575 -11.9925 6.02625 -11.411249999999999Q4.995 -10.83 4.4175 -9.79875Q3.84 -8.7675 3.84 -7.395Q3.84 -6.045 4.42125 -4.995Q5.0024999999999995 -3.945 6.0337499999999995 -3.3637499999999996Q7.0649999999999995 -2.7824999999999998 8.415 -2.7824999999999998Z M22.3425 0.0V-14.25H25.05V0.0ZM25.05 -8.115 24.0375 -8.5875Q24.0375 -11.295 25.2975 -12.9225Q26.5575 -14.549999999999999 28.927500000000002 -14.549999999999999Q29.9925 -14.549999999999999 30.86625 -14.1675Q31.740000000000002 -13.785 32.49 -12.9375L30.7125 -11.1Q30.262500000000003 -11.5875 29.71875 -11.7975Q29.175 -12.0075 28.4625 -12.0075Q26.97 -12.0075 26.009999999999998 -11.04375Q25.05 -10.08 25.05 -8.115Z M44.415 0.3Q42.3375 0.3 40.65375 -0.69375Q38.97 -1.6875 37.98 -3.3825Q36.989999999999995 -5.0775 36.989999999999995 -7.1625Q36.989999999999995 -9.24 37.98 -10.905000000000001Q38.97 -12.57 40.65375 -13.559999999999999Q42.3375 -14.549999999999999 44.415 -14.549999999999999Q46.50749999999999 -14.549999999999999 48.19125 -13.57125Q49.875 -12.5925 50.864999999999995 -10.91625Q51.855 -9.24 51.855 -7.1625Q51.855 -5.069999999999999 50.864999999999995 -3.3787499999999997Q49.875 -1.6875 48.19125 -0.69375Q46.50749999999999 0.3 44.415 0.3ZM44.415 -2.3024999999999998Q45.772499999999994 -2.3024999999999998 46.826249999999995 -2.92875Q47.879999999999995 -3.5549999999999997 48.47624999999999 -4.66125Q49.0725 -5.7675 49.0725 -7.17Q49.0725 -8.5575 48.465 -9.629999999999999Q47.8575 -10.702499999999999 46.815 -11.325Q45.772499999999994 -11.9475 44.415 -11.9475Q43.08 -11.9475 42.022499999999994 -11.325Q40.964999999999996 -10.702499999999999 40.36875 -9.629999999999999Q39.7725 -8.5575 39.7725 -7.1625Q39.7725 -5.76 40.36875 -4.6575Q40.964999999999996 -3.5549999999999997 42.022499999999994 -2.92875Q43.08 -2.3024999999999998 44.415 -2.3024999999999998Z M63.645 0.3Q61.87640287769784 0.3 60.48445143884892 -0.4987499999999999Q59.0925 -1.2974999999999999 58.31625 -2.704036396181384Q57.54 -4.110572792362768 57.54 -5.965346062052506V-14.25H60.2475V-6.0825Q60.2475 -4.9125 60.6525 -4.0649999999999995Q61.057500000000005 -3.2175 61.83 -2.7562499999999996Q62.6025 -2.295 63.65237068965517 -2.295Q65.25 -2.295 66.14625000000001 -3.30375Q67.0425 -4.3125 67.0425 -6.0825V-14.25H69.75V-5.9624999999999995Q69.75 -4.1025 68.97375 -2.6887499999999998Q68.1975 -1.275 66.82192446043166 -0.48749999999999993Q65.44634892086331 0.3 63.645 0.3Z M83.8725 0.3Q82.245 0.3 80.95125 -0.3787499999999999Q79.6575 -1.0574999999999999 78.8775 -2.2537499999999997Q78.09750000000001 -3.4499999999999997 78.00750000000001 -4.9875V-9.27Q78.09750000000001 -10.8225 78.89250000000001 -12.015Q79.6875 -13.2075 80.985 -13.87875Q82.2825 -14.549999999999999 83.8725 -14.549999999999999Q85.83000000000001 -14.549999999999999 87.39750000000001 -13.559999999999999Q88.965 -12.57 89.87625 -10.89Q90.78750000000001 -9.209999999999999 90.78750000000001 -7.095Q90.78750000000001 -5.01 89.88000000000001 -3.3337499999999998Q88.97250000000001 -1.6575 87.40125 -0.67875Q85.83000000000001 0.3 83.8725 0.3ZM76.3725 5.97V-14.25H79.08000000000001V-10.5075L78.5775 -7.0424999999999995L79.08000000000001 -3.5774999999999997V5.97ZM83.4225 -2.2575Q84.77250000000001 -2.2575 85.80000000000001 -2.8762499999999998Q86.8275 -3.4949999999999997 87.41625 -4.5975Q88.00500000000001 -5.7 88.00500000000001 -7.125Q88.00500000000001 -8.5575 87.41625 -9.65625Q86.8275 -10.754999999999999 85.80375000000001 -11.37375Q84.78 -11.9925 83.44500000000001 -11.9925Q82.11 -11.9925 81.08250000000001 -11.37375Q80.055 -10.754999999999999 79.48500000000001 -9.65625Q78.915 -8.5575 78.915 -7.1175Q78.915 -5.6925 79.48125 -4.59375Q80.0475 -3.4949999999999997 81.07124999999999 -2.8762499999999998Q82.095 -2.2575 83.4225 -2.2575Z" fill="currentColor"/></svg><p>Donner vie aux idées. <b>Créer l’impact.</b></p></div>
+        <span class="f-bar" aria-hidden="true"></span>
+        <button class="f-ctrl" type="button" aria-label="Mettre l’animation en pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+      </div>
     </div>
   </section>
   <section class="band white">
@@ -644,33 +653,43 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     document.addEventListener("click", function () { setTimeout(function () { document.querySelectorAll(".view.on [data-r]:not(.in)").forEach(function (el) { io.unobserve(el); io.observe(el); }); }, 30); });
   })();
 
-  // Halo lumineux qui suit le doigt ou la souris dans les bandeaux sombres
+  // Souris et grand écran : effets de survol. Doigt : on les évite, pour un défilement fluide.
+  var fine = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 900px)").matches;
+  // Halo lumineux qui suit la souris dans les bandeaux sombres
   document.querySelectorAll(".hero, .page-hero, .cta").forEach(function (sec) {
     var g = document.createElement("div"); g.className = "glow"; g.setAttribute("aria-hidden", "true");
     sec.insertBefore(g, sec.firstChild);
-    if (reduce) return;
+    if (reduce || !fine) return;
+    var raf = 0, ex = 0, ey = 0;
     sec.addEventListener("pointermove", function (e) {
-      var r = sec.getBoundingClientRect();
-      g.style.setProperty("--gx", (e.clientX - r.left) + "px");
-      g.style.setProperty("--gy", (e.clientY - r.top) + "px");
+      ex = e.clientX; ey = e.clientY;
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0; var r = sec.getBoundingClientRect();
+        g.style.setProperty("--gx", (ex - r.left) + "px");
+        g.style.setProperty("--gy", (ey - r.top) + "px");
+      });
     });
   });
 
   // Léger effet de profondeur sur les grands « k »
-  if (!reduce) {
-    var ks = document.querySelectorAll(".cadence, .big-k, .cta .bg");
+  if (!reduce && fine) {
+    var ks = document.querySelectorAll(".cadence, .big-k, .cta .bg"), ticking = false;
     window.addEventListener("scroll", function () {
-      var y = window.scrollY;
-      ks.forEach(function (k) { k.style.translate = "0 " + (y * 0.12).toFixed(1) + "px"; });
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false; var y = window.scrollY;
+        ks.forEach(function (k) { k.style.translate = "0 " + (y * 0.12).toFixed(1) + "px"; });
+      });
     }, { passive: true });
   }
 
-  // Lecture / pause du film, et pause automatique quand il sort de l'écran
-  var film = document.getElementById("film"), fc = document.getElementById("film-ctrl");
-  if (film && fc) {
-    var userPaused = false;
-    var PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
-    var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+  // Lecture / pause des films, et pause automatique quand ils sortent de l'écran
+  var PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+  var PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+  document.querySelectorAll(".film").forEach(function (film) {
+    var fc = film.querySelector(".f-ctrl"), userPaused = false;
+    if (!fc) return;
     fc.addEventListener("click", function () {
       userPaused = !film.classList.contains("paused");
       film.classList.toggle("paused", userPaused);
@@ -682,7 +701,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
         if (!userPaused) film.classList.toggle("paused", !en[0].isIntersecting);
       }).observe(film);
     }
-  }
+  });
 })();
 </script>
 

@@ -333,12 +333,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 .f-ctrl { position: absolute; right: 16px; bottom: 18px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.14); color: var(--white); display: grid; place-items: center; cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 2; }
 .f-ctrl:hover { background: rgba(255,255,255,.24); }
 .f-ctrl svg { width: 18px; height: 18px; }
-@media (prefers-reduced-motion: reduce) {
-  .film, .film * { animation: none !important; }
-  .f-k, .f-words { display: none; }
-  .f-end { opacity: 1; }
-  .f-bar, .f-ctrl { display: none; }
-}
+/* Le film joue aussi quand le téléphone demande moins d’animations : le bouton pause permet de l’arrêter. */
 
 /* ===== Inspiration Numérique Awards : menu flottant, boutons en dégradé, grandes cartes ===== */
 .top { position: fixed; left: 0; right: 0; top: calc(env(safe-area-inset-top, 0px) + 12px); background: transparent; color: var(--ink); pointer-events: none; }

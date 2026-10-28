@@ -4,7 +4,13 @@ HERE=os.path.dirname(os.path.abspath(__file__))
 os.chdir(HERE)
 SITE='https://kafalisgroup.com'
 body=open('src/app.html').read()
-logo=open('assets/logo-inline.svg').read()
+logo_svg=open('assets/logo-inline.svg').read()
+# Le logo est dessiné une seule fois (symbole) puis réutilisé : pages plus légères
+_vb=re.search(r'viewBox="([^"]+)"',logo_svg).group(1)
+_inner=logo_svg[logo_svg.index('>')+1:logo_svg.rindex('</svg>')]
+logo_symbol=f'<symbol id="logo" viewBox="{_vb}">{_inner}</symbol>'
+_w,_h=_vb.split()[2:]
+logo=f'<svg class="logo" role="img" aria-label="Kafalis Group" viewBox="0 0 {_w} {_h}"><use href="#logo" width="{_w}" height="{_h}"/></svg>'
 CTA='''<section class="band deep cta">
     <svg class="bg" viewBox="0 0 100 100" aria-hidden="true"><use href="#k"/></svg>
     <div class="wrap">
@@ -53,10 +59,14 @@ def film(k):
   </section>'''
 for k in FILMS: body=body.replace(f'__FILM_{k}__',film(k))
 assert '__FILM' not in body
+assert body.count('<defs>')==1
+body=body.replace('<defs>','<defs>\n    '+logo_symbol,1)
 body=body.replace('__LOGO__',logo).replace('__CTA__',CTA).replace('__DELIVER__',DELIVER)
 for k in names: body=body.replace(f'__NEXT_{k}__',nxt(k))
 assert '__NEXT' not in body and '__CTA' not in body
 font='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap">'
+# Vrai site : police Outfit hébergée sur le site (sous-ensemble français, 300 à 600), préchargée, sans aller-retour vers Google
+font_site='<link rel="preload" href="/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin><style>@font-face{font-family:"Outfit";src:url("/fonts/outfit.woff2") format("woff2");font-weight:300 600;font-style:normal;font-display:swap}</style>'
 
 # 1) Aperçu (une seule page, vues par #)
 open(S+'kafalis-site.html','w').write('<title>Kafalis Group</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+font+'\n'+body)
@@ -127,7 +137,7 @@ def head(k, robots='index,follow'):
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-{font}
+{font_site}
 {jsonld(k)}
 <style>[hidden]{{display:none!important}}</style>
 </head>
@@ -158,9 +168,10 @@ PAGES['404']=('/404.html','Page introuvable | Kafalis Group','Cette page n’exi
 open('dist/404.html','w').write(page('404', nf, 'noindex'))
 del PAGES['404']
 for f in ['favicon.svg','apple-touch-icon.png','og-image.png']: shutil.copy(f,'dist/'+f)
+os.makedirs('dist/fonts',exist_ok=True); shutil.copy('assets/fonts/outfit.woff2','dist/fonts/outfit.woff2')
 open('dist/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
 urls=''.join(f'<url><loc>{SITE}{p}</loc><changefreq>monthly</changefreq><priority>{"1.0" if p=="/" else "0.8"}</priority></url>' for p,_,_ in PAGES.values())
 open('dist/sitemap.xml','w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
 # Cloudflare Pages : www et pages.dev -> adresse principale, cache
-open('dist/_headers','w').write('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/*.png\n  Cache-Control: public, max-age=2592000\n/*.svg\n  Cache-Control: public, max-age=2592000\n\nhttps://kafalis-site.pages.dev/*\n  X-Robots-Tag: noindex\n\n/sources/*\n  X-Robots-Tag: noindex\n')
+open('dist/_headers','w').write('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/*.png\n  Cache-Control: public, max-age=2592000\n/*.svg\n  Cache-Control: public, max-age=2592000\n/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n  Access-Control-Allow-Origin: *\n\nhttps://kafalis-site.pages.dev/*\n  X-Robots-Tag: noindex\n\n/sources/*\n  X-Robots-Tag: noindex\n')
 print('ok', sorted(os.listdir('dist')))

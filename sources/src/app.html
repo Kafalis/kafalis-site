@@ -252,15 +252,15 @@ footer .tag { margin-top: 18px; max-width: 32ch; font-size: 15px; }
 footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--on-navy-line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; }
 @media (max-width: 860px) { footer .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } footer .grid > div:first-child { grid-column: 1 / -1; } }
 
-/* ===== Dégradé ===== */
+/* ===== Dégradés : couleurs de la charte uniquement (bleu marine #13294B, orange #E8601C) et leurs nuances ===== */
 :root {
-  --grad: linear-gradient(110deg, #E8601C 0%, #F2834A 30%, #D9376E 62%, #4B3FB8 100%);
+  --grad: linear-gradient(110deg, #F2834A 0%, #E8601C 55%, #C9511A 100%);
 }
-.scenario { background: linear-gradient(140deg, #13294B 0%, #1D3762 55%, #3A2F8F 100%); }
+.scenario { background: linear-gradient(140deg, #13294B 0%, #1D3762 55%, #2C4F86 100%); }
 .offer h3::before { background: var(--orange); }
 
 /* ===== Mouvement ===== */
-:root { --grad-loop: linear-gradient(110deg, #E8601C 0%, #D9376E 25%, #4B3FB8 50%, #D9376E 75%, #E8601C 100%); }
+:root { --grad-loop: linear-gradient(110deg, #E8601C 0%, #F2834A 25%, #FFC4A3 50%, #F2834A 75%, #E8601C 100%); }
 .hero h1 .rot { display: inline-grid; }
 .hero h1 .rot span { grid-area: 1 / 1; transition: transform .6s var(--ease), opacity .45s; background: var(--grad-loop); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: sheen 6s linear infinite; }
 .hero h1 .rot span:not(.cur) { opacity: 0; transform: translateY(.35em); }
@@ -269,15 +269,16 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 /* Fluidité : le dégradé bouge par « transform » sur un calque à part (calculé par la carte graphique), jamais en repeignant le fond. */
 .deep, .navy { background-color: var(--navy-deep); position: relative; isolation: isolate; overflow: hidden; overflow: clip; }
 .navy { background-color: var(--navy); }
-.deep::before, .navy::before, .film::before { content: ""; position: absolute; inset: -25%; z-index: -1; pointer-events: none; background-image: radial-gradient(40% 55% at 85% 15%, rgba(232,96,28,.42), transparent 70%), radial-gradient(45% 60% at 10% 90%, rgba(75,63,184,.55), transparent 70%), radial-gradient(35% 45% at 55% 60%, rgba(217,55,110,.28), transparent 70%); animation: drift 18s ease-in-out infinite alternate; will-change: transform; }
+.deep::before, .navy::before, .film::before { content: ""; position: absolute; inset: -25%; z-index: -1; pointer-events: none; background-image: radial-gradient(40% 55% at 85% 15%, rgba(232,96,28,.42), transparent 70%), radial-gradient(45% 60% at 10% 90%, rgba(44,79,134,.7), transparent 70%), radial-gradient(35% 45% at 55% 60%, rgba(242,131,74,.2), transparent 70%); animation: drift 18s ease-in-out infinite alternate; }
+.idle::before, .idle .track { animation-play-state: paused !important; }
 @keyframes drift { 0% { transform: translate3d(-8%, -6%, 0); } 50% { transform: translate3d(4%, 3%, 0); } 100% { transform: translate3d(8%, 6%, 0); } }
-.ticker { background: linear-gradient(110deg, #E8601C 0%, #D9376E 50%, #4B3FB8 100%); color: var(--white); overflow: hidden; overflow: clip; padding-block: 18px; }
+.ticker { background: linear-gradient(110deg, #C9511A 0%, #E8601C 50%, #C9511A 100%); color: var(--white); overflow: hidden; overflow: clip; padding-block: 18px; }
 .ticker .track { display: flex; width: max-content; animation: tick 38s linear infinite; will-change: transform; }
 .ticker ul { list-style: none; padding: 0; display: flex; }
 .ticker li { font-size: clamp(20px, 2.6vw, 30px); font-weight: 600; letter-spacing: -.01em; white-space: nowrap; display: flex; align-items: center; }
 .ticker li::after { content: ""; width: 14px; height: 4px; background: var(--white); margin: 0 28px; transform: skewX(-38deg); }
 @keyframes tick { to { transform: translateX(-50%); } }
-.glow { position: absolute; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(242,131,74,.35), rgba(217,55,110,.18) 40%, transparent 70%); pointer-events: none; transform: translate3d(var(--gx, 70vw), var(--gy, 30%), 0); transition: transform .4s ease-out; will-change: transform; z-index: 0; }
+.glow { position: absolute; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(242,131,74,.35), rgba(232,96,28,.14) 40%, transparent 70%); pointer-events: none; transform: translate3d(var(--gx, 70vw), var(--gy, 30%), 0); transition: transform .4s ease-out; will-change: transform; z-index: 0; }
 .page-hero .big-k, .cta .bg { --k-leg: url(#kgrad); }
 .anim [data-r] { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0s); }
 .anim [data-r].in { opacity: 1; transform: none; }
@@ -350,7 +351,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   .menu a[aria-current="page"] { color: var(--orange); }
 }
 .btn { border-radius: 18px; min-height: 58px; }
-.btn:not(.line):not(.dark) { background: linear-gradient(110deg, #E8601C 0%, #D9376E 55%, #4B3FB8 100%); background-size: 180% auto; background-position: 0% center; transition: background-position .5s var(--ease), box-shadow .3s; box-shadow: 0 14px 30px -14px rgba(217,55,110,.7); }
+.btn:not(.line):not(.dark) { background: linear-gradient(110deg, #E8601C 0%, #D9581B 50%, #B8481A 100%); background-size: 180% auto; background-position: 0% center; transition: background-position .5s var(--ease), box-shadow .3s; box-shadow: 0 14px 30px -14px rgba(232,96,28,.55); }
 .btn:not(.line):not(.dark):hover { background-position: 100% center; }
 .deep .btn.line, .navy .btn.line { background: rgba(255,255,255,.06); }
 @media (max-width: 560px) { .btns { display: grid; } .btns .btn { width: 100%; } }
@@ -358,7 +359,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 .svc { border-bottom: 0; }
 .svc a { grid-template-columns: 88px minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); background: var(--white); border-radius: 36px; padding: clamp(28px, 4vw, 48px); box-shadow: 0 24px 50px -34px rgba(19,41,75,.45), inset 0 0 0 1px rgba(19,41,75,.05); }
 .svc h3 { font-size: clamp(30px, 4vw, 52px); }
-.svc .ico { width: 88px; height: 88px; border-radius: 26px; display: grid; place-items: center; color: var(--white); background: linear-gradient(135deg, #E8601C, #D9376E 55%, #4B3FB8); box-shadow: 0 16px 30px -14px rgba(217,55,110,.7); }
+.svc .ico { width: 88px; height: 88px; border-radius: 26px; display: grid; place-items: center; color: var(--white); background: linear-gradient(135deg, #F2834A, #E8601C 50%, #C9511A); box-shadow: 0 16px 30px -14px rgba(232,96,28,.55); }
 .svc .ico svg { width: 40px; height: 40px; }
 @media (max-width: 760px) { .svc a { grid-template-columns: 1fr; gap: 18px; } .svc .ico { width: 76px; height: 76px; border-radius: 22px; } }
 </style>
@@ -366,7 +367,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="k" viewBox="0 0 100 100"><g transform="translate(2.06 93.20) scale(1.2)"><path style="fill:var(--k-stem)" d="M6.1 0V-72H17.1V0Z"/><path style="fill:var(--k-leg)" d="M23.15 -22.56 L47.15 -48.00 L62.27 -48.00 L39.82 -24.20 L73.79 0 L54.83 0 Z"/><circle style="fill:var(--k-leg)" cx="69.99" cy="-62.65" r="6.82"/></g></symbol>
-    <linearGradient id="kgrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#E8601C"/><stop offset=".55" stop-color="#D9376E"/><stop offset="1" stop-color="#4B3FB8"/></linearGradient>
+    <linearGradient id="kgrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#C9511A"/><stop offset=".5" stop-color="#E8601C"/><stop offset="1" stop-color="#F2834A"/></linearGradient>
   </defs>
 </svg>
 
@@ -902,6 +903,12 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
         ks.forEach(function (k) { k.style.translate = "0 " + (y * 0.12).toFixed(1) + "px"; });
       });
     }, { passive: true });
+  }
+
+  // Les fonds animés et le bandeau s'arrêtent quand ils sont hors de l'écran (moins de calcul, défilement plus fluide)
+  if ("IntersectionObserver" in window) {
+    var idle = new IntersectionObserver(function (en) { en.forEach(function (e) { e.target.classList.toggle("idle", !e.isIntersecting); }); }, { rootMargin: "100px 0px" });
+    document.querySelectorAll(".deep, .navy, .ticker").forEach(function (el) { idle.observe(el); });
   }
 
   // Lecture / pause des films, et pause automatique quand ils sortent de l'écran

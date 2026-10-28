@@ -35,11 +35,11 @@ def nxt(cur):
     cards=f'<p>Nos autres métiers</p>{links}'
     return f'<section class="band"><div class="wrap"><div class="next">{cards}</div></div></section>\n  '+CTA
 FILMS={
- 'accueil':('Nos métiers en 12 secondes',[('On active.','Dégustations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
- 'activation':('Une activation en 12 secondes',[('On briefe.','Animateurs formés à votre produit'),('On anime.','Dégustations en points de vente et marchés'),('On mesure.','Photos, quantités, retours clients')]),
+ 'accueil':('Nos métiers en 12 secondes',[('On active.','Démonstrations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
+ 'activation':('Une activation en 12 secondes',[('On briefe.','Animateurs formés à votre produit'),('On anime.','Démonstrations en points de vente et marchés'),('On mesure.','Photos, quantités, retours clients')]),
  'evenementiel':('Un événement en 12 secondes',[('On prépare.','Lieu, décor, son, écrans'),('On installe.','Montage, accueil, protocole'),('On reçoit.','Le jour J, tout est coordonné')]),
  'impression':('Une commande en 12 secondes',[('On conçoit.','Formats, papiers, finitions'),('On imprime.','Bon à tirer validé par vous'),('On livre.','Contrôlé, à la date convenue')]),
- 'agence':('Kafalis en 12 secondes',[('On active.','Dégustations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
+ 'agence':('Kafalis en 12 secondes',[('On active.','Démonstrations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
 }
 def film(k):
     title,words=FILMS[k]
@@ -74,9 +74,9 @@ open(S+'kafalis-site.html','w').write('<title>Kafalis Group</title>\n<meta name=
 # 2) Vrai site : une page par rubrique
 PAGES={
  'accueil':     ('/', 'Kafalis Group | Agence d’activation, événementiel et impression à Conakry',
-                 'Agence de communication de proximité en Guinée : activation terrain (BTL), dégustations, événements et impression de supports à Conakry et partout en Guinée.'),
+                 'Agence de communication de proximité en Guinée : activation terrain (BTL), démonstrations produit, événements et impression de supports à Conakry et partout en Guinée.'),
  'activation':  ('/activation-terrain/', 'Activation terrain et animation commerciale à Conakry | Kafalis Group',
-                 'Dégustations, démonstrations, animations en points de vente et sur les marchés, animateurs et stands de marque : vos campagnes BTL en Guinée, avec rapport terrain.'),
+                 'Démonstrations produit, essais, animations en points de vente et sur les marchés, animateurs et stands de marque : vos campagnes BTL en Guinée, avec rapport terrain.'),
  'evenementiel':('/evenementiel/', 'Organisation d’événements à Conakry, Guinée | Kafalis Group',
                  'Lancements de produits, conférences, cérémonies officielles et événements d’entreprise à Conakry : lieu, décoration, son, écrans, accueil et protocole pris en main.'),
  'impression':  ('/impression/', 'Impression de supports publicitaires à Conakry | Kafalis Group',

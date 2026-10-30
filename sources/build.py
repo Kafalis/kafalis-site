@@ -83,6 +83,8 @@ PAGES={
                  'Flyers, affiches, brochures, bâches, kakemonos, banderoles, signalétique et goodies personnalisés à Conakry. Conseil, bon à tirer, contrôle qualité et livraison.'),
  'agence':      ('/agence/', 'L’agence de communication de proximité en Guinée | Kafalis Group',
                  'Kafalis Group accompagne entreprises, institutions, ONG et porteurs de projets en Guinée : mission, valeurs et engagements de l’agence.'),
+ 'lacadence':   ('/la-cadence/', 'La Cadence, la lettre du marketing terrain et de l’événementiel en Guinée | Kafalis Group',
+                 'Toutes les deux semaines, par e-mail ou sur WhatsApp : conseils, check-lists et décryptages sur l’activation de produits, l’événementiel, la décoration et l’audiovisuel en Guinée. Gratuit.'),
  'contact':     ('/contact/', 'Contact et demande de devis | Kafalis Group, Conakry',
                  'Décrivez votre projet d’activation, d’événement ou d’impression : Kafalis Group vous répond avec une proposition et un devis détaillé en GNF.'),
 }
@@ -108,7 +110,7 @@ def jsonld(k):
     g=[org,{"@type":"WebSite","@id":SITE+"/#site","url":SITE+"/","name":"Kafalis Group","inLanguage":"fr","publisher":{"@id":SITE+"/#org"}},
        {"@type":"WebPage","url":SITE+path,"name":title,"description":desc,"inLanguage":"fr","isPartOf":{"@id":SITE+"/#site"}}]
     if k!='accueil':
-        label={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports','agence':'L’agence','contact':'Contact'}.get(k,'Page introuvable')
+        label={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports','agence':'L’agence','lacadence':'La Cadence','contact':'Contact'}.get(k,'Page introuvable')
         g.append({"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":SITE+"/"},{"@type":"ListItem","position":2,"name":label,"item":SITE+path}]})
     if k in names:
         g.append({"@type":"Service","name":names[k],"serviceType":names[k],"provider":{"@id":SITE+"/#org"},"areaServed":{"@type":"Country","name":"Guinée"},"url":SITE+path,"description":desc})

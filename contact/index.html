@@ -462,8 +462,8 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     <div class="grid">
       <div><svg class="logo" role="img" aria-label="Kafalis Group" viewBox="0 0 318.59 109"><use href="#logo" width="318.59" height="109"/></svg><p class="tag">Agence guinéenne de communication de proximité. Activation terrain, événementiel, impression.</p></div>
       <div><h4>Métiers</h4><ul><li><a href="/activation-terrain/">Activation terrain</a></li><li><a href="/evenementiel/">Événementiel</a></li><li><a href="/impression/">Impression et supports</a></li></ul></div>
-      <div><h4>Agence</h4><ul><li><a href="/agence/">L’agence</a></li><li><a href="/contact/">Demander un devis</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li><a href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></li><li>Conakry, Guinée</li></ul></div>
+      <div><h4>Agence</h4><ul><li><a href="/agence/">L’agence</a></li><li><a href="/la-cadence/">La Cadence, notre lettre</a></li><li><a href="/contact/">Demander un devis</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></li><li><a href="https://www.facebook.com/1420392747823939" target="_blank" rel="noopener">Facebook</a></li><li>Conakry, Guinée</li></ul></div>
     </div>
     <div class="legal"><span>© <span id="year">2026</span> Kafalis Group</span><span>Conakry, Guinée</span></div>
   </div>
@@ -474,8 +474,8 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   // Numéro WhatsApp au format international sans « + » ni espaces, ex. "224620000000". Vide = WhatsApp masqué.
   var WHATSAPP = "";
   var EMAIL = "contact@kafalisgroup.com";
-  var VIEWS = ["accueil", "activation", "evenementiel", "impression", "agence", "contact"];
-  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain | Kafalis Group", evenementiel: "Événementiel | Kafalis Group", impression: "Impression et supports | Kafalis Group", agence: "L’agence | Kafalis Group", contact: "Contact | Kafalis Group" };
+  var VIEWS = ["accueil", "activation", "evenementiel", "impression", "agence", "lacadence", "contact"];
+  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain | Kafalis Group", evenementiel: "Événementiel | Kafalis Group", impression: "Impression et supports | Kafalis Group", agence: "L’agence | Kafalis Group", lacadence: "La Cadence | Kafalis Group", contact: "Contact | Kafalis Group" };
   var root = document.documentElement;
   var top = document.getElementById("top");
   var burger = document.getElementById("burger");
@@ -529,7 +529,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     show(location.hash.slice(1), false);
   } else {
     // Anciennes adresses du site en une page (ex. /#agence) : renvoi vers la vraie page
-    var OLD = { activation: "/activation-terrain/", evenementiel: "/evenementiel/", impression: "/impression/", agence: "/agence/", contact: "/contact/" };
+    var OLD = { activation: "/activation-terrain/", evenementiel: "/evenementiel/", impression: "/impression/", agence: "/agence/", lacadence: "/la-cadence/", contact: "/contact/" };
     var h = location.hash.slice(1);
     if (OLD[h] && location.pathname === "/") { location.replace(OLD[h]); return; }
     // Site en plusieurs pages : le besoin arrive par l’adresse, ex. /contact/?besoin=Événement
@@ -602,6 +602,26 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       var a = document.createElement("a");
       a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(m.body);
       a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
+    });
+  }
+
+  if (document.getElementById("cadence")) {
+    var cnote = document.getElementById("cadence-note");
+    document.getElementById("cadence").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var nom = document.getElementById("c-nom").value.trim(), contact = document.getElementById("c-contact").value.trim();
+      if (!nom || !contact) {
+        cnote.textContent = "Indiquez votre prénom et votre e-mail ou numéro WhatsApp.";
+        document.getElementById(nom ? "c-contact" : "c-nom").focus();
+        return;
+      }
+      var org = document.getElementById("c-org").value.trim();
+      var ints = [].map.call(document.querySelectorAll('input[name="interet"]:checked'), function (i) { return i.value; });
+      var lines = ["Bonjour Kafalis Group,", "", "Je souhaite recevoir La Cadence.", "", "Prénom : " + nom, "E-mail ou WhatsApp : " + contact];
+      if (org) lines.push("Organisation : " + org);
+      if (ints.length) lines.push("Centres d’intérêt : " + ints.join(", "));
+      window.location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Inscription à La Cadence") + "&body=" + encodeURIComponent(lines.join("\n"));
+      cnote.textContent = "Votre messagerie devrait s’ouvrir avec la demande prête : il ne reste qu’à l’envoyer.";
     });
   }
 

@@ -97,7 +97,7 @@ PAGES={
  'agence':      ('/agence/', 'L’agence de communication de proximité en Guinée | Kafalis Group',
                  'Kafalis Group accompagne entreprises, institutions, ONG et porteurs de projets en Guinée : mission, valeurs et engagements de l’agence.'),
  'realisations':('/realisations/', 'Réalisations : activation, événementiel, photo et vidéo | Kafalis Group',
-                 'Projets menés par Kafalis Group pour ses clients en Guinée, dont les shootings photo de MARIDOR (assaisonnements aux fruits de mer) et de SPL (flotte de camions et équipes).'),
+                 'Projets récents de Kafalis Group en Guinée : shootings photo de produits et d’entreprise, activations et événements.'),
  'lacadence':   ('/la-cadence/', 'La Cadence, la lettre du marketing terrain et de l’événementiel en Guinée | Kafalis Group',
                  'Toutes les deux semaines, par e-mail ou sur WhatsApp : conseils, check-lists et décryptages sur l’activation de produits, l’événementiel, la décoration et l’audiovisuel en Guinée. Gratuit.'),
  'contact':     ('/contact/', 'Contact et demande de devis | Kafalis Group, Conakry',

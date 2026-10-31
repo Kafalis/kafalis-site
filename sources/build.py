@@ -76,6 +76,9 @@ def imgs(html, preview):
         else:
             src=f'/img/realisations/maridor-{i}.jpg'
         html=html.replace(f'__IMG_{i}__',src)
+    for i in range(1,5):
+        src=('data:image/jpeg;base64,'+base64.b64encode(open(f'assets/realisations/spl-{i}-apercu.jpg','rb').read()).decode()) if preview else f'/img/realisations/spl-{i}.jpg'
+        html=html.replace(f'__SPL_{i}__',src)
     return html
 # 1) Aperçu (une seule page, vues par #)
 open(S+'kafalis-site.html','w').write('<title>Kafalis Group</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+font+'\n'+imgs(body,True))
@@ -94,7 +97,7 @@ PAGES={
  'agence':      ('/agence/', 'L’agence de communication de proximité en Guinée | Kafalis Group',
                  'Kafalis Group accompagne entreprises, institutions, ONG et porteurs de projets en Guinée : mission, valeurs et engagements de l’agence.'),
  'realisations':('/realisations/', 'Réalisations : activation, événementiel, photo et vidéo | Kafalis Group',
-                 'Projets menés par Kafalis Group pour ses clients en Guinée, dont le shooting photo produit de MARIDOR, marque d’assaisonnements aux fruits de mer.'),
+                 'Projets menés par Kafalis Group pour ses clients en Guinée, dont les shootings photo de MARIDOR (assaisonnements aux fruits de mer) et de SPL (flotte de camions et équipes).'),
  'lacadence':   ('/la-cadence/', 'La Cadence, la lettre du marketing terrain et de l’événementiel en Guinée | Kafalis Group',
                  'Toutes les deux semaines, par e-mail ou sur WhatsApp : conseils, check-lists et décryptages sur l’activation de produits, l’événementiel, la décoration et l’audiovisuel en Guinée. Gratuit.'),
  'contact':     ('/contact/', 'Contact et demande de devis | Kafalis Group, Conakry',
@@ -183,7 +186,8 @@ open('dist/404.html','w').write(page('404', nf, 'noindex'))
 del PAGES['404']
 for f in ['favicon.svg','apple-touch-icon.png','og-image.png']: shutil.copy(f,'dist/'+f)
 os.makedirs('dist/img/realisations',exist_ok=True)
-for i in range(1,7): shutil.copy(f'assets/realisations/maridor-{i}.jpg',f'dist/img/realisations/maridor-{i}.jpg')
+for f in os.listdir('assets/realisations'):
+    if not f.endswith('-apercu.jpg'): shutil.copy('assets/realisations/'+f,'dist/img/realisations/'+f)
 os.makedirs('dist/fonts',exist_ok=True); shutil.copy('assets/fonts/outfit.woff2','dist/fonts/outfit.woff2')
 open('dist/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
 urls=''.join(f'<url><loc>{SITE}{p}</loc><changefreq>monthly</changefreq><priority>{"1.0" if p=="/" else "0.8"}</priority></url>' for p,_,_ in PAGES.values())

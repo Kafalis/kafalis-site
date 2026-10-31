@@ -68,8 +68,18 @@ font='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="prec
 # Vrai site : police Outfit hébergée sur le site (sous-ensemble français, 300 à 600), préchargée, sans aller-retour vers Google
 font_site='<link rel="preload" href="/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin><style>@font-face{font-family:"Outfit";src:url("/fonts/outfit.woff2") format("woff2");font-weight:300 600;font-style:normal;font-display:swap}</style>'
 
+import base64
+def imgs(html, preview):
+    for i in range(1,7):
+        if preview:
+            src='data:image/jpeg;base64,'+base64.b64encode(open(f'assets/realisations/maridor-{i}-apercu.jpg','rb').read()).decode()
+        else:
+            src=f'/img/realisations/maridor-{i}.jpg'
+        html=html.replace(f'__IMG_{i}__',src)
+    return html
 # 1) Aperçu (une seule page, vues par #)
-open(S+'kafalis-site.html','w').write('<title>Kafalis Group</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+font+'\n'+body)
+open(S+'kafalis-site.html','w').write('<title>Kafalis Group</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'+font+'\n'+imgs(body,True))
+body=imgs(body,False)
 
 # 2) Vrai site : une page par rubrique
 PAGES={
@@ -83,6 +93,8 @@ PAGES={
                  'Flyers, affiches, brochures, bâches, kakemonos, banderoles, signalétique et goodies personnalisés à Conakry. Conseil, bon à tirer, contrôle qualité et livraison.'),
  'agence':      ('/agence/', 'L’agence de communication de proximité en Guinée | Kafalis Group',
                  'Kafalis Group accompagne entreprises, institutions, ONG et porteurs de projets en Guinée : mission, valeurs et engagements de l’agence.'),
+ 'realisations':('/realisations/', 'Réalisations : activation, événementiel, photo et vidéo | Kafalis Group',
+                 'Projets menés par Kafalis Group pour ses clients en Guinée, dont le shooting photo produit de MARIDOR, marque d’assaisonnements aux fruits de mer.'),
  'lacadence':   ('/la-cadence/', 'La Cadence, la lettre du marketing terrain et de l’événementiel en Guinée | Kafalis Group',
                  'Toutes les deux semaines, par e-mail ou sur WhatsApp : conseils, check-lists et décryptages sur l’activation de produits, l’événementiel, la décoration et l’audiovisuel en Guinée. Gratuit.'),
  'contact':     ('/contact/', 'Contact et demande de devis | Kafalis Group, Conakry',
@@ -110,7 +122,7 @@ def jsonld(k):
     g=[org,{"@type":"WebSite","@id":SITE+"/#site","url":SITE+"/","name":"Kafalis Group","inLanguage":"fr","publisher":{"@id":SITE+"/#org"}},
        {"@type":"WebPage","url":SITE+path,"name":title,"description":desc,"inLanguage":"fr","isPartOf":{"@id":SITE+"/#site"}}]
     if k!='accueil':
-        label={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports','agence':'L’agence','lacadence':'La Cadence','contact':'Contact'}.get(k,'Page introuvable')
+        label={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports','agence':'L’agence','lacadence':'La Cadence','realisations':'Réalisations','contact':'Contact'}.get(k,'Page introuvable')
         g.append({"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":SITE+"/"},{"@type":"ListItem","position":2,"name":label,"item":SITE+path}]})
     if k in names:
         g.append({"@type":"Service","name":names[k],"serviceType":names[k],"provider":{"@id":SITE+"/#org"},"areaServed":{"@type":"Country","name":"Guinée"},"url":SITE+path,"description":desc})
@@ -170,10 +182,12 @@ PAGES['404']=('/404.html','Page introuvable | Kafalis Group','Cette page n’exi
 open('dist/404.html','w').write(page('404', nf, 'noindex'))
 del PAGES['404']
 for f in ['favicon.svg','apple-touch-icon.png','og-image.png']: shutil.copy(f,'dist/'+f)
+os.makedirs('dist/img/realisations',exist_ok=True)
+for i in range(1,7): shutil.copy(f'assets/realisations/maridor-{i}.jpg',f'dist/img/realisations/maridor-{i}.jpg')
 os.makedirs('dist/fonts',exist_ok=True); shutil.copy('assets/fonts/outfit.woff2','dist/fonts/outfit.woff2')
 open('dist/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
 urls=''.join(f'<url><loc>{SITE}{p}</loc><changefreq>monthly</changefreq><priority>{"1.0" if p=="/" else "0.8"}</priority></url>' for p,_,_ in PAGES.values())
 open('dist/sitemap.xml','w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
 # Cloudflare Pages : www et pages.dev -> adresse principale, cache
-open('dist/_headers','w').write('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/*.png\n  Cache-Control: public, max-age=2592000\n/*.svg\n  Cache-Control: public, max-age=2592000\n/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n  Access-Control-Allow-Origin: *\n\nhttps://kafalis-site.pages.dev/*\n  X-Robots-Tag: noindex\n\n/sources/*\n  X-Robots-Tag: noindex\n')
+open('dist/_headers','w').write('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/*.png\n  Cache-Control: public, max-age=2592000\n/*.svg\n  Cache-Control: public, max-age=2592000\n/*.jpg\n  Cache-Control: public, max-age=2592000\n/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n  Access-Control-Allow-Origin: *\n\nhttps://kafalis-site.pages.dev/*\n  X-Robots-Tag: noindex\n\n/sources/*\n  X-Robots-Tag: noindex\n')
 print('ok', sorted(os.listdir('dist')))

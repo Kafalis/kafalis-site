@@ -388,6 +388,19 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 .svc .ico { width: 88px; height: 88px; border-radius: 26px; display: grid; place-items: center; color: var(--white); background: linear-gradient(135deg, #F2834A, #E8601C 50%, #C9511A); box-shadow: 0 16px 30px -14px rgba(232,96,28,.55); }
 .svc .ico svg { width: 40px; height: 40px; }
 @media (max-width: 760px) { .svc a { grid-template-columns: 1fr; gap: 18px; } .svc .ico { width: 76px; height: 76px; border-radius: 22px; } }
+.case-head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 72px); align-items: end; }
+.case-tag { font-size: 15px; font-weight: 500; color: var(--orange); }
+.case-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); margin-block: clamp(36px, 5vw, 64px); }
+.case-facts div { border-top: 3px solid var(--navy); padding-top: 18px; display: grid; gap: 8px; align-content: start; }
+.case-facts h3 { font-size: 20px; }
+.case-facts p { color: var(--muted); font-size: 16px; }
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 2vw, 20px); }
+.shot { margin: 0; border-radius: 24px; overflow: hidden; overflow: clip; background: #000; box-shadow: 0 24px 50px -30px rgba(19,41,75,.55); }
+.shot.wide { grid-column: 1 / -1; }
+.home-shot { display: block; }
+.shot img { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+@media (max-width: 860px) { .case-head, .case-facts { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } .shot { border-radius: 18px; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -405,6 +418,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       <a href="/activation-terrain/">Activation terrain</a>
       <a href="/evenementiel/">Événementiel</a>
       <a href="/impression/">Impression</a>
+      <a href="/realisations/">Réalisations</a>
       <a href="/agence/">L’agence</a>
       <a class="btn" href="/contact/">Demander un devis</a>
     </nav>
@@ -462,7 +476,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     <div class="grid">
       <div><svg class="logo" role="img" aria-label="Kafalis Group" viewBox="0 0 318.59 109"><use href="#logo" width="318.59" height="109"/></svg><p class="tag">Agence guinéenne de communication de proximité. Activation terrain, événementiel, impression.</p></div>
       <div><h4>Métiers</h4><ul><li><a href="/activation-terrain/">Activation terrain</a></li><li><a href="/evenementiel/">Événementiel</a></li><li><a href="/impression/">Impression et supports</a></li></ul></div>
-      <div><h4>Agence</h4><ul><li><a href="/agence/">L’agence</a></li><li><a href="/la-cadence/">La Cadence, notre lettre</a></li><li><a href="/contact/">Demander un devis</a></li></ul></div>
+      <div><h4>Agence</h4><ul><li><a href="/agence/">L’agence</a></li><li><a href="/realisations/">Réalisations</a></li><li><a href="/la-cadence/">La Cadence, notre lettre</a></li><li><a href="/contact/">Demander un devis</a></li></ul></div>
       <div><h4>Contact</h4><ul><li><a href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></li><li><a href="https://www.facebook.com/1420392747823939" target="_blank" rel="noopener">Facebook</a></li><li>Conakry, Guinée</li></ul></div>
     </div>
     <div class="legal"><span>© <span id="year">2026</span> Kafalis Group</span><span>Conakry, Guinée</span></div>
@@ -474,8 +488,8 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   // Numéro WhatsApp au format international sans « + » ni espaces, ex. "224620000000". Vide = WhatsApp masqué.
   var WHATSAPP = "";
   var EMAIL = "contact@kafalisgroup.com";
-  var VIEWS = ["accueil", "activation", "evenementiel", "impression", "agence", "lacadence", "contact"];
-  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain | Kafalis Group", evenementiel: "Événementiel | Kafalis Group", impression: "Impression et supports | Kafalis Group", agence: "L’agence | Kafalis Group", lacadence: "La Cadence | Kafalis Group", contact: "Contact | Kafalis Group" };
+  var VIEWS = ["accueil", "activation", "evenementiel", "impression", "agence", "realisations", "lacadence", "contact"];
+  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain | Kafalis Group", evenementiel: "Événementiel | Kafalis Group", impression: "Impression et supports | Kafalis Group", agence: "L’agence | Kafalis Group", lacadence: "La Cadence | Kafalis Group", realisations: "Réalisations | Kafalis Group", contact: "Contact | Kafalis Group" };
   var root = document.documentElement;
   var top = document.getElementById("top");
   var burger = document.getElementById("burger");
@@ -529,7 +543,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     show(location.hash.slice(1), false);
   } else {
     // Anciennes adresses du site en une page (ex. /#agence) : renvoi vers la vraie page
-    var OLD = { activation: "/activation-terrain/", evenementiel: "/evenementiel/", impression: "/impression/", agence: "/agence/", lacadence: "/la-cadence/", contact: "/contact/" };
+    var OLD = { activation: "/activation-terrain/", evenementiel: "/evenementiel/", impression: "/impression/", agence: "/agence/", lacadence: "/la-cadence/", realisations: "/realisations/", contact: "/contact/" };
     var h = location.hash.slice(1);
     if (OLD[h] && location.pathname === "/") { location.replace(OLD[h]); return; }
     // Site en plusieurs pages : le besoin arrive par l’adresse, ex. /contact/?besoin=Événement

@@ -116,7 +116,7 @@ def links(html):
     return html
 
 org={"@type":"Organization","@id":SITE+"/#org","name":"Kafalis Group","url":SITE+"/","logo":SITE+"/apple-touch-icon.png","image":SITE+"/og-image.png",
-     "email":"contact@kafalisgroup.com","description":"Agence de communication de proximité en Guinée : activation terrain, événementiel et impression.",
+     "email":"contact@kafalisgroup.com","telephone":"+224628812903","description":"Agence de communication de proximité en Guinée : activation terrain, événementiel et impression.",
      "address":{"@type":"PostalAddress","addressLocality":"Conakry","addressCountry":"GN"},
      "areaServed":{"@type":"Country","name":"Guinée"},
      "knowsAbout":["Activation de marque","Marketing terrain","BTL","Événementiel","Impression publicitaire"]}

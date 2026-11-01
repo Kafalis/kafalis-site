@@ -37,7 +37,7 @@ def nxt(cur):
 FILMS={
  'accueil':('Nos métiers en 12 secondes',[('On active.','Démonstrations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
  'activation':('Une activation en 12 secondes',[('On briefe.','Animateurs formés à votre produit'),('On anime.','Démonstrations en points de vente et marchés'),('On mesure.','Photos, quantités, retours clients')]),
- 'evenementiel':('Un événement en 12 secondes',[('On prépare.','Lieu, décor, son, écrans'),('On installe.','Montage, accueil, protocole'),('On reçoit.','Le jour J, tout est coordonné')]),
+ 'evenementiel':('Un événement en 12 secondes',[('On prépare.','Lieu, scénographie, son, écrans'),('On installe.','Montage, accueil, protocole'),('On reçoit.','Le jour J, tout est coordonné')]),
  'impression':('Une commande en 12 secondes',[('On conçoit.','Formats, papiers, finitions'),('On imprime.','Bon à tirer validé par vous'),('On livre.','Contrôlé, à la date convenue')]),
  'agence':('Kafalis en 12 secondes',[('On active.','Démonstrations, animations, points de vente'),('On organise.','Lancements, cérémonies, conférences'),('On imprime.','Bâches, kakemonos, flyers, goodies')]),
 }
@@ -91,7 +91,7 @@ PAGES={
  'activation':  ('/activation-terrain/', 'Activation terrain et animation commerciale à Conakry | Kafalis Group',
                  'Démonstrations produit, essais, animations en points de vente et sur les marchés, animateurs et stands de marque : vos campagnes BTL en Guinée, avec rapport terrain.'),
  'evenementiel':('/evenementiel/', 'Organisation d’événements à Conakry, Guinée | Kafalis Group',
-                 'Lancements de produits, conférences, cérémonies officielles et événements d’entreprise à Conakry : lieu, décoration, son, écrans, accueil et protocole pris en main.'),
+                 'Lancements de produits, conférences, cérémonies officielles et événements d’entreprise à Conakry : lieu, scénographie, branding, son, écrans, accueil et protocole pris en main.'),
  'impression':  ('/impression/', 'Impression de supports publicitaires à Conakry | Kafalis Group',
                  'Flyers, affiches, brochures, bâches, kakemonos, banderoles, signalétique et goodies personnalisés à Conakry. Conseil, bon à tirer, contrôle qualité et livraison.'),
  'agence':      ('/agence/', 'L’agence de communication de proximité en Guinée | Kafalis Group',
@@ -99,7 +99,7 @@ PAGES={
  'realisations':('/realisations/', 'Réalisations : activation, événementiel, photo et vidéo | Kafalis Group',
                  'Projets récents de Kafalis Group en Guinée : shootings photo de produits et d’entreprise, activations et événements.'),
  'lacadence':   ('/la-cadence/', 'La Cadence, la lettre du marketing terrain et de l’événementiel en Guinée | Kafalis Group',
-                 'Toutes les deux semaines, par e-mail ou sur WhatsApp : conseils, check-lists et décryptages sur l’activation de produits, l’événementiel, la décoration et l’audiovisuel en Guinée. Gratuit.'),
+                 'Toutes les deux semaines, par e-mail ou sur WhatsApp : conseils, check-lists et décryptages sur l’activation de produits, l’événementiel, la scénographie institutionnelle, le branding événementiel et l’audiovisuel en Guinée. Gratuit.'),
  'contact':     ('/contact/', 'Contact et demande de devis | Kafalis Group, Conakry',
                  'Décrivez votre projet d’activation, d’événement ou d’impression : Kafalis Group vous répond avec une proposition et un devis détaillé en GNF.'),
 }

@@ -1,5 +1,9 @@
 import os, re, shutil, json
-S='/tmp/claude-0/-home-claude/ab87ead7-ae52-5b05-bd81-2057583e5e6e/scratchpad/'
+import datetime
+# Dossier de sortie de l'aperçu (une page) : à adapter au besoin
+S=os.environ.get('APERCU_DIR', '/tmp/kafalis-apercu/')
+os.makedirs(S, exist_ok=True)
+TODAY=datetime.date.today().isoformat()
 HERE=os.path.dirname(os.path.abspath(__file__))
 os.chdir(HERE)
 SITE='https://kafalisgroup.com'
@@ -29,7 +33,7 @@ DELIVER='''<section class="band white">
       </div>
     </div>
   </section>'''
-names={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports'}
+names={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports','scenographie':'Scénographie institutionnelle','audiovisuel':'Audiovisuel'}
 def nxt(cur):
     links=''.join(f'<a href="#{k}">{names[k]}</a>' for k in names if k!=cur)
     cards=f'<p>Nos autres métiers</p>{links}'
@@ -57,6 +61,54 @@ def film(k):
       </div>
     </div>
   </section>'''
+FAQS={
+ 'accueil':[
+  ('Qu’est-ce que Kafalis Group ?','Kafalis Group est une agence guinéenne de communication de proximité, basée à Conakry. Elle réunit l’activation terrain (marketing BTL), l’événementiel institutionnel, la scénographie institutionnelle et le branding événementiel, l’audiovisuel et l’impression de supports, avec un seul interlocuteur pour tout le projet.'),
+  ('Kafalis Group intervient-il en dehors de Conakry ?','Oui. L’agence est basée à Conakry et intervient partout en Guinée, pour des activations de produits, des événements et la livraison de supports.'),
+  ('Qu’est-ce qu’une activation terrain, ou marketing BTL ?','C’est une action menée directement auprès du public, hors des grands médias : démonstrations et essais de produits en points de vente, animations sur les marchés, distribution d’échantillons, stands de marque. Le client voit le produit, l’essaie, et l’achète plus volontiers.'),
+  ('Organisez-vous des cérémonies officielles et des conférences pour les institutions ?','Oui. Kafalis Group prend en charge le lieu, la scénographie institutionnelle, le branding événementiel, le son, la lumière, les écrans, l’accueil et le protocole, la photo et la vidéo, et coordonne tous les prestataires jusqu’au bilan.'),
+  ('Faites-vous de la photo et de la vidéo ?','Oui : shootings photo de produits et d’entreprise, couverture photo et vidéo d’événements, vidéos courtes pour les réseaux sociaux. Nos premières réalisations sont visibles sur la page Réalisations.'),
+  ('Combien coûte une prestation ?','Chaque projet fait l’objet d’un devis détaillé en GNF, poste par poste, établi après un échange sur votre objectif, votre public, vos dates et votre budget. Toute variation vous est soumise avant d’être engagée.'),
+  ('Comment demander un devis ?','Par le formulaire de la page Contact, par e-mail à contact@kafalisgroup.com, ou par téléphone et WhatsApp au +224 628 81 29 03.'),
+  ('Comment se prononce Kafalis ?','« Ka-fa-li » : le S final s’écrit mais ne se prononce pas. Le nom complet de l’agence est Kafalis Group.'),
+ ],
+ 'activation':[
+  ('Où se déroulent vos activations ?','En points de vente, supermarchés, boutiques, sur les marchés et dans les lieux publics autorisés, à Conakry et dans les autres villes de Guinée. Les autorisations sont obtenues avant le début de l’action.'),
+  ('Pour quels produits ?','Pour tout type de produits et de services : grande consommation, hygiène et beauté, téléphonie, services, produits nouveaux ou déjà installés qui veulent regagner de la visibilité.'),
+  ('Que recevez-vous à la fin d’une activation ?','Un rapport final avec les photos, les quantités distribuées, les points de vente couverts et les réactions des clients.'),
+ ],
+ 'evenementiel':[
+  ('Quels événements organisez-vous ?','Lancements de produits, conférences, ateliers, cérémonies officielles, journées portes ouvertes et événements d’entreprise, à Conakry et en Guinée.'),
+  ('Pouvez-vous gérer tout l’événement ?','Oui. Une seule personne coordonne le lieu, la scénographie, le branding, la technique, l’accueil, le protocole et les prestataires, de la préparation jusqu’au bilan.'),
+  ('Combien de temps à l’avance faut-il vous contacter ?','Le plus tôt possible : quelques semaines permettent de réserver le lieu et les prestataires et de produire les supports dans de bonnes conditions. Pour une demande urgente, écrivez-nous, nous vous dirons franchement ce qui est faisable.'),
+ ],
+ 'impression':[
+  ('Quels supports imprimez-vous ?','Flyers, dépliants, affiches, brochures, cartes de visite, invitations, bâches, kakémonos, banderoles, panneaux, signalétique, goodies et textiles personnalisés.'),
+  ('Vérifiez-vous les fichiers avant l’impression ?','Oui. Un bon à tirer vous est soumis et doit être validé avant toute production, puis chaque lot est contrôlé avant la remise.'),
+  ('Livrez-vous les supports ?','Oui, à l’adresse et à la date convenues dans le devis.'),
+ ],
+ 'scenographie':[
+  ('Quelle différence entre scénographie institutionnelle et branding événementiel ?','La scénographie institutionnelle organise et met en scène le lieu : plan, scène, mobilier, fleurs, lumière, parcours des invités. Le branding événementiel habille ce lieu aux couleurs de l’institution ou de la marque : signalétique, photocall, fond de scène, kakémonos.'),
+  ('Pour quels événements ?','Cérémonies officielles, conférences, signatures de conventions, lancements de produits, inaugurations et événements d’entreprise.'),
+  ('Produisez-vous aussi les supports imprimés ?','Oui. Fond de scène, photocall, kakémonos et signalétique sont produits par notre pôle impression, avec un bon à tirer validé par vous.'),
+ ],
+ 'audiovisuel':[
+  ('Quels types de shootings photo réalisez-vous ?','Des photos de produits mis en scène et des photos d’entreprise : équipes, sites, véhicules et activités en conditions réelles.'),
+  ('Pouvez-vous couvrir notre événement en photo et en vidéo ?','Oui, avec des images prêtes à partager après l’événement sur vos réseaux sociaux et dans vos rapports.'),
+  ('Fournissez-vous le son, la lumière et les écrans ?','Oui : sonorisation, micros, éclairage de scène, projection et écrans, avec une régie pendant l’événement.'),
+ ],
+}
+import html as _h
+def faq_html(k):
+    items=''.join(f'<details><summary>{_h.escape(q)}</summary><p>{_h.escape(a)}</p></details>' for q,a in FAQS[k])
+    return f"""<section class="band white">
+    <div class="wrap two-col">
+      <h2 class="h2">Questions fréquentes</h2>
+      <div class="faq">{items}</div>
+    </div>
+  </section>"""
+for k in FAQS: body=body.replace(f'__FAQ_{k}__',faq_html(k))
+assert '__FAQ' not in body
 for k in FILMS: body=body.replace(f'__FILM_{k}__',film(k))
 assert '__FILM' not in body
 assert body.count('<defs>')==1
@@ -86,14 +138,18 @@ body=imgs(body,False)
 
 # 2) Vrai site : une page par rubrique
 PAGES={
- 'accueil':     ('/', 'Kafalis Group | Agence d’activation, événementiel et impression à Conakry',
-                 'Agence de communication de proximité en Guinée : activation terrain (BTL), démonstrations produit, événements et impression de supports à Conakry et partout en Guinée.'),
+ 'accueil':     ('/', 'Kafalis Group | Agence événementiel et activation de marque à Conakry, Guinée',
+                 'Agence de communication de proximité à Conakry : activation terrain (marketing BTL), événementiel institutionnel, scénographie institutionnelle, branding événementiel, audiovisuel et impression, partout en Guinée.'),
  'activation':  ('/activation-terrain/', 'Activation terrain et animation commerciale à Conakry | Kafalis Group',
                  'Démonstrations produit, essais, animations en points de vente et sur les marchés, animateurs et stands de marque : vos campagnes BTL en Guinée, avec rapport terrain.'),
  'evenementiel':('/evenementiel/', 'Organisation d’événements à Conakry, Guinée | Kafalis Group',
                  'Lancements de produits, conférences, cérémonies officielles et événements d’entreprise à Conakry : lieu, scénographie, branding, son, écrans, accueil et protocole pris en main.'),
  'impression':  ('/impression/', 'Impression de supports publicitaires à Conakry | Kafalis Group',
                  'Flyers, affiches, brochures, bâches, kakemonos, banderoles, signalétique et goodies personnalisés à Conakry. Conseil, bon à tirer, contrôle qualité et livraison.'),
+ 'scenographie':('/scenographie-institutionnelle/', 'Scénographie institutionnelle et branding événementiel à Conakry | Kafalis Group',
+                 'Mise en scène du lieu, scène, fond de scène, mobilier, fleurs, lumière, photocall et signalétique pour vos cérémonies officielles, conférences et lancements à Conakry et en Guinée.'),
+ 'audiovisuel': ('/audiovisuel/', 'Audiovisuel à Conakry : photo, vidéo, son, lumière et écrans | Kafalis Group',
+                 'Shootings photo de produits et d’entreprise, couverture photo et vidéo d’événements, vidéos pour les réseaux, sonorisation, lumière et écrans à Conakry et en Guinée.'),
  'agence':      ('/agence/', 'L’agence de communication de proximité en Guinée | Kafalis Group',
                  'Kafalis Group accompagne entreprises, institutions, ONG et porteurs de projets en Guinée : mission, valeurs et engagements de l’agence.'),
  'realisations':('/realisations/', 'Réalisations : activation, événementiel, photo et vidéo | Kafalis Group',
@@ -115,26 +171,36 @@ def links(html):
     html=re.sub(r'href="/contact/" data-need="([^"]+)"', lambda m: 'href="/contact/?besoin='+m.group(1).replace(' ','+')+'"', html)
     return html
 
-org={"@type":"Organization","@id":SITE+"/#org","name":"Kafalis Group","url":SITE+"/","logo":SITE+"/apple-touch-icon.png","image":SITE+"/og-image.png",
-     "email":"contact@kafalisgroup.com","telephone":"+224628812903","description":"Agence de communication de proximité en Guinée : activation terrain, événementiel et impression.",
+SERVICE_PATHS={'activation':'/activation-terrain/','evenementiel':'/evenementiel/','impression':'/impression/','scenographie':'/scenographie-institutionnelle/','audiovisuel':'/audiovisuel/'}
+org={"@type":["Organization","ProfessionalService"],"@id":SITE+"/#org","name":"Kafalis Group","alternateName":["Kafalis","Kafalis Group Guinée"],
+     "url":SITE+"/","logo":SITE+"/apple-touch-icon.png","image":SITE+"/og-image.png",
+     "slogan":"Donner vie aux idées. Créer l’impact.","foundingDate":"2026","foundingLocation":{"@type":"Place","name":"Conakry, Guinée"},
+     "email":"contact@kafalisgroup.com","telephone":"+224628812903",
+     "description":"Kafalis Group est une agence guinéenne de communication de proximité basée à Conakry : activation terrain et marketing BTL, événementiel institutionnel, scénographie institutionnelle, branding événementiel, audiovisuel et impression de supports, partout en Guinée.",
      "address":{"@type":"PostalAddress","addressLocality":"Conakry","addressCountry":"GN"},
-     "areaServed":{"@type":"Country","name":"Guinée"},
-     "knowsAbout":["Activation de marque","Marketing terrain","BTL","Événementiel","Impression publicitaire"]}
+     "areaServed":[{"@type":"City","name":"Conakry"},{"@type":"Country","name":"Guinée"}],
+     "contactPoint":{"@type":"ContactPoint","contactType":"customer service","telephone":"+224628812903","email":"contact@kafalisgroup.com","availableLanguage":["fr"],"areaServed":"GN"},
+     "sameAs":["https://www.facebook.com/1420392747823939"],
+     "knowsAbout":["Activation de marque","Activation terrain","Marketing BTL","Animation commerciale","Démonstration de produits","Événementiel institutionnel","Organisation d’événements","Scénographie institutionnelle","Branding événementiel","Audiovisuel","Photographie de produits","Sonorisation et éclairage","Impression publicitaire","Signalétique"],
+     "hasOfferCatalog":{"@type":"OfferCatalog","name":"Métiers de Kafalis Group","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":n,"url":SITE+SERVICE_PATHS[k]}} for k,n in names.items()]}}
 def jsonld(k):
     path,title,desc=PAGES[k]
     g=[org,{"@type":"WebSite","@id":SITE+"/#site","url":SITE+"/","name":"Kafalis Group","inLanguage":"fr","publisher":{"@id":SITE+"/#org"}},
        {"@type":"WebPage","url":SITE+path,"name":title,"description":desc,"inLanguage":"fr","isPartOf":{"@id":SITE+"/#site"}}]
     if k!='accueil':
-        label={'activation':'Activation terrain','evenementiel':'Événementiel','impression':'Impression et supports','agence':'L’agence','lacadence':'La Cadence','realisations':'Réalisations','contact':'Contact'}.get(k,'Page introuvable')
+        label={**names,'agence':'L’agence','lacadence':'La Cadence','realisations':'Réalisations','contact':'Contact'}.get(k,'Page introuvable')
         g.append({"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":SITE+"/"},{"@type":"ListItem","position":2,"name":label,"item":SITE+path}]})
     if k in names:
-        g.append({"@type":"Service","name":names[k],"serviceType":names[k],"provider":{"@id":SITE+"/#org"},"areaServed":{"@type":"Country","name":"Guinée"},"url":SITE+path,"description":desc})
+        g.append({"@type":"Service","name":names[k],"serviceType":names[k],"provider":{"@id":SITE+"/#org"},"areaServed":[{"@type":"City","name":"Conakry"},{"@type":"Country","name":"Guinée"}],"url":SITE+path,"description":desc})
+    if k in FAQS:
+        g.append({"@type":"FAQPage","url":SITE+path,"mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in FAQS[k]]})
     return '<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@graph":g},ensure_ascii=False)+'</script>'
 
 def head(k, robots='index,follow'):
     path,title,desc=PAGES[k]
     return f'''<!doctype html>
 <html lang="fr">
+<!--email_off-->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -165,7 +231,7 @@ def page(k, inner, robots='index,follow'):
     p=links(pre)
     # Menu : page en cours
     p=p.replace(f'<a href="{path}">', f'<a href="{path}" aria-current="page">',1) if k!='accueil' else p
-    return head(k,robots)+p+'<main>\n<div class="view on" data-view="'+k+'">'+links(inner)+'\n</div>\n'+links(post)+'\n</body>\n</html>\n'
+    return head(k,robots)+p+'<main>\n<div class="view on" data-view="'+k+'">'+links(inner)+'\n</div>\n'+links(post)+'\n</body>\n<!--/email_off-->\n</html>\n'
 
 shutil.rmtree('dist',ignore_errors=True); os.makedirs('dist')
 for k,(path,_,_) in PAGES.items():
@@ -189,8 +255,38 @@ os.makedirs('dist/img/realisations',exist_ok=True)
 for f in os.listdir('assets/realisations'):
     if not f.endswith('-apercu.jpg'): shutil.copy('assets/realisations/'+f,'dist/img/realisations/'+f)
 os.makedirs('dist/fonts',exist_ok=True); shutil.copy('assets/fonts/outfit.woff2','dist/fonts/outfit.woff2')
-open('dist/robots.txt','w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
-urls=''.join(f'<url><loc>{SITE}{p}</loc><changefreq>monthly</changefreq><priority>{"1.0" if p=="/" else "0.8"}</priority></url>' for p,_,_ in PAGES.values())
+BOTS=['GPTBot','OAI-SearchBot','ChatGPT-User','ClaudeBot','Claude-SearchBot','Claude-User','PerplexityBot','Perplexity-User','Google-Extended','Googlebot','Bingbot','Applebot','Applebot-Extended','meta-externalagent','DuckAssistBot','MistralAI-User','CCBot']
+robots='# Kafalis Group : tous les robots, y compris les assistants IA, sont les bienvenus.\n'+''.join(f'User-agent: {b}\n' for b in BOTS)+'Allow: /\nDisallow: /sources/\n\nUser-agent: *\nAllow: /\nDisallow: /sources/\n\n'+f'Sitemap: {SITE}/sitemap.xml\n'
+open('dist/robots.txt','w').write(robots)
+def plain(t): return re.sub(r'<[^>]+>','',t)
+svc_lines=''.join(f'- [{names[k]}]({SITE}{PAGES[k][0]}) : {PAGES[k][2]}\n' for k in names)
+other=''.join(f'- [{plain(PAGES[k][1]).split(" | ")[0]}]({SITE}{PAGES[k][0]}) : {PAGES[k][2]}\n' for k in ['agence','realisations','lacadence','contact'])
+faq_md=''.join(f'### {q}\n\n{a}\n\n' for q,a in FAQS['accueil'])
+llms=f'''# Kafalis Group
+
+> Kafalis Group est une agence guinéenne de communication de proximité, basée à Conakry (Guinée). Elle réunit l’activation terrain (marketing BTL, activation de marque, démonstrations de produits en points de vente), l’événementiel institutionnel, la scénographie institutionnelle, le branding événementiel, l’audiovisuel (photo, vidéo, son, lumière, écrans) et l’impression de supports publicitaires, avec un seul interlocuteur par projet. Elle intervient à Conakry et partout en Guinée.
+
+- Nom : Kafalis Group (avec un S ; se prononce « Ka-fa-li »)
+- Ville : Conakry, Guinée
+- Zone d’intervention : Conakry et toute la Guinée
+- Clients : marques et entreprises, institutions et administrations, ONG, porteurs de projets
+- Devis : détaillé en francs guinéens (GNF), poste par poste
+- Téléphone et WhatsApp : +224 628 81 29 03
+- E-mail : contact@kafalisgroup.com
+- Site : {SITE}/
+- Facebook : https://www.facebook.com/1420392747823939
+
+## Métiers
+
+{svc_lines}
+## L’agence
+
+{other}
+## Questions fréquentes
+
+{faq_md}'''
+open('dist/llms.txt','w').write(llms)
+urls=''.join(f'<url><loc>{SITE}{p}</loc><lastmod>{TODAY}</lastmod><changefreq>monthly</changefreq><priority>{"1.0" if p=="/" else "0.8"}</priority></url>' for p,_,_ in PAGES.values())
 open('dist/sitemap.xml','w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
 # Cloudflare Pages : www et pages.dev -> adresse principale, cache
 open('dist/_headers','w').write('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/*.png\n  Cache-Control: public, max-age=2592000\n/*.svg\n  Cache-Control: public, max-age=2592000\n/*.jpg\n  Cache-Control: public, max-age=2592000\n/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n  Access-Control-Allow-Origin: *\n\nhttps://kafalis-site.pages.dev/*\n  X-Robots-Tag: noindex\n\n/sources/*\n  X-Robots-Tag: noindex\n')

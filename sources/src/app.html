@@ -214,6 +214,19 @@ img { max-width: 100%; }
 @media (max-width: 520px) { .eng { grid-template-columns: 1fr; gap: 6px; } }
 
 /* Contact */
+.faq { border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; padding: 22px 40px 22px 0; font-size: clamp(18px, 1.8vw, 21px); font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 12px; height: 12px; border-right: 2px solid var(--orange); border-bottom: 2px solid var(--orange); transform: translateY(-70%) rotate(45deg); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: translateY(-30%) rotate(225deg); }
+.faq details p { color: var(--muted); font-size: 17px; padding: 0 0 24px; max-width: 64ch; }
+.facts { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 5fr); border-top: 1px solid var(--line); }
+.facts dt, .facts dd { margin: 0; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.facts dt { color: var(--muted); font-size: 16px; padding-right: 16px; }
+@media (max-width: 560px) { .facts { grid-template-columns: 1fr; } .facts dt { border-bottom: 0; padding-bottom: 0; } }
+.also { margin-top: 24px; color: var(--muted); }
+.also a { color: var(--ink); text-decoration-color: var(--orange); text-underline-offset: .16em; }
 .contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
 @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
 .channels { display: grid; margin-top: 8px; }
@@ -453,6 +466,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
         <li class="svc"><a href="#evenementiel"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span><h3>Événementiel</h3><p>Lancements, conférences, cérémonies officielles. Lieu, scénographie, branding, son, écrans, accueil et protocole pris en main.</p></a></li>
         <li class="svc"><a href="#impression"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg></span><h3>Impression et supports</h3><p>Flyers, affiches, bâches, kakemonos, signalétique et goodies, conseillés, contrôlés et livrés à temps.</p></a></li>
       </ul>
+      <p class="also">Et autour de ces trois métiers : la <a href="#scenographie">scénographie institutionnelle et le branding événementiel</a>, et l’<a href="#audiovisuel">audiovisuel</a> (photo, vidéo, son, lumière, écrans).</p>
     </div>
   </section>
 
@@ -514,6 +528,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     </div>
   </section>
 
+  __FAQ_accueil__
   __CTA__
 </div>
 
@@ -557,6 +572,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     </div>
   </section>
   __DELIVER__
+  __FAQ_activation__
   __NEXT_activation__
 </div>
 
@@ -577,10 +593,10 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
       <h2 class="h2">Ce que nous prenons en charge</h2>
       <ul class="offer">
         <li><h3>Lieu et logistique</h3><p>Recherche du lieu, plan d’implantation, transport et installation.</p></li>
-        <li><h3>Scénographie institutionnelle</h3><p>Mise en scène du lieu, scène, mobilier, fleurs et parcours des invités.</p></li>
+        <li><h3>Scénographie institutionnelle</h3><p>Mise en scène du lieu, scène, mobilier, fleurs et parcours des invités. <a href="#scenographie">En savoir plus</a></p></li>
         <li><h3>Branding événementiel</h3><p>Habillage aux couleurs de l’institution ou de la marque : signalétique, photocall, fond de scène, kakémonos.</p></li>
         <li><h3>Son, lumière, écrans</h3><p>Sonorisation, éclairage, projection et régie pendant l’événement.</p></li>
-        <li><h3>Photo et vidéo</h3><p>Couverture de l’événement et images prêtes à partager.</p></li>
+        <li><h3>Photo et vidéo</h3><p>Couverture de l’événement et images prêtes à partager. <a href="#audiovisuel">En savoir plus</a></p></li>
         <li><h3>Invitations, accueil, protocole</h3><p>Liste des invités, hôtesses, placement et conduite du déroulé.</p></li>
         <li><h3>Budget et bilan</h3><p>Budget validé puis respecté, bilan remis après l’événement.</p></li>
       </ul>
@@ -601,6 +617,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     </div>
   </section>
   __DELIVER__
+  __FAQ_evenementiel__
   __NEXT_evenementiel__
 </div>
 
@@ -644,7 +661,87 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     </div>
   </section>
   __DELIVER__
+  __FAQ_impression__
   __NEXT_impression__
+</div>
+
+<!-- ============ SCÉNOGRAPHIE ============ -->
+<div class="view" data-view="scenographie">
+  <section class="page-hero deep">
+    <svg class="big-k" viewBox="0 0 100 100" aria-hidden="true"><use href="#k"/></svg>
+    <div class="wrap">
+      <p class="crumb"><a href="#accueil">Accueil</a><span>/</span><span>Métiers</span></p>
+      <h1>Scénographie institu&shy;tionnelle</h1>
+      <p class="lead">Mise en scène du lieu et branding événementiel pour les cérémonies officielles, conférences, lancements et événements d’entreprise à Conakry et en Guinée. De l’entrée jusqu’à la scène, le lieu porte l’image de l’institution ou de la marque.</p>
+      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Scénographie institutionnelle">Préparer une scénographie</a></div>
+    </div>
+  </section>
+  <section class="band white">
+    <div class="wrap two-col">
+      <h2 class="h2">Ce que nous concevons et installons</h2>
+      <ul class="offer">
+        <li><h3>Plan et parcours des invités</h3><p>Implantation de la salle, circulation, placement, zones d’accueil, de presse et espaces officiels.</p></li>
+        <li><h3>Scène et fond de scène</h3><p>Estrade, pupitre, fond de scène aux couleurs de l’organisateur, écrans intégrés.</p></li>
+        <li><h3>Mobilier et fleurs</h3><p>Choix et disposition du mobilier, compositions florales, salons officiels.</p></li>
+        <li><h3>Branding événementiel</h3><p>Signalétique, photocall, kakémonos, habillage de l’entrée, des stands et des tables.</p></li>
+        <li><h3>Lumière et ambiance</h3><p>Éclairage de la scène et de la salle, réglé sur le déroulé de l’événement.</p></li>
+        <li><h3>Montage et démontage</h3><p>Installation, contrôle avant l’arrivée des invités, démontage et remise en état du lieu.</p></li>
+      </ul>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <div class="scenario">
+        <div class="stack"><h3>Exemple : cérémonie officielle d’une institution</h3><p style="color:var(--on-navy-muted)">Un exemple de déroulé, adapté ensuite au lieu, au nombre d’invités et à votre budget.</p></div>
+        <ol>
+          <li><span><b>Visite du lieu</b> : mesures, accès, contraintes techniques et de sécurité.</span></li>
+          <li><span><b>Proposition</b> : plan d’implantation, scène, liste des supports et devis détaillé en GNF.</span></li>
+          <li><span><b>Production</b> : supports de branding imprimés, mobilier, fleurs et technique réservés.</span></li>
+          <li><span><b>Montage</b> : installation, essais son et lumière, contrôle final.</span></li>
+          <li><span><b>Jour J</b> : un responsable sur place jusqu’au démontage.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  __DELIVER__
+  __FAQ_scenographie__
+  __NEXT_scenographie__
+</div>
+
+<!-- ============ AUDIOVISUEL ============ -->
+<div class="view" data-view="audiovisuel">
+  <section class="page-hero deep">
+    <svg class="big-k" viewBox="0 0 100 100" aria-hidden="true"><use href="#k"/></svg>
+    <div class="wrap">
+      <p class="crumb"><a href="#accueil">Accueil</a><span>/</span><span>Métiers</span></p>
+      <h1>Audio&shy;visuel</h1>
+      <p class="lead">Photo, vidéo, son, lumière et écrans à Conakry : les images de vos produits, de vos équipes et de vos événements, et la technique qui fait tenir le jour J.</p>
+      <div class="btns" style="margin-top:8px"><a class="btn" href="#contact" data-need="Photo et vidéo">Parler de votre projet</a></div>
+    </div>
+  </section>
+  <section class="band white">
+    <div class="wrap two-col">
+      <h2 class="h2">Ce que nous proposons</h2>
+      <ul class="offer">
+        <li><h3>Photo de produits</h3><p>Vos produits mis en scène pour les réseaux sociaux, les catalogues, les affiches et les emballages.</p></li>
+        <li><h3>Photo d’entreprise</h3><p>Équipes, sites, véhicules et activités photographiés en conditions réelles.</p></li>
+        <li><h3>Couverture d’événements</h3><p>Photo et vidéo de vos cérémonies, conférences et lancements, images prêtes à partager.</p></li>
+        <li><h3>Vidéos pour les réseaux</h3><p>Formats courts de présentation, de lancement ou de bilan d’activation.</p></li>
+        <li><h3>Sonorisation</h3><p>Micros, enceintes et régie pour les discours, les animations et les conférences.</p></li>
+        <li><h3>Lumière et écrans</h3><p>Éclairage de scène, projection et écrans pendant l’événement.</p></li>
+      </ul>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <div class="svc-head"><h2 class="h2">Déjà réalisé</h2><p class="lead" style="max-width:44ch">Un shooting photo produit pour une marque guinéenne d’assaisonnements, et un shooting photo d’entreprise pour une société de logistique minière.</p></div>
+      <a class="shot home-shot" href="#realisations"><img src="__IMG_4__" alt="Une main verse un assaisonnement sur des crevettes à la poêle, photo d’un shooting produit" loading="lazy" width="1400" height="933"></a>
+      <div class="btns" style="margin-top:24px"><a class="btn line" href="#realisations">Voir les réalisations</a></div>
+    </div>
+  </section>
+  __DELIVER__
+  __FAQ_audiovisuel__
+  __NEXT_audiovisuel__
 </div>
 
 <!-- ============ AGENCE ============ -->
@@ -658,6 +755,21 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     </div>
   </section>
   __FILM_agence__
+  <section class="band white">
+    <div class="wrap two-col">
+      <h2 class="h2">Kafalis Group en bref</h2>
+      <dl class="facts">
+        <dt>Nom</dt><dd>Kafalis Group (se prononce « Ka-fa-li », le S final est muet)</dd>
+        <dt>Activité</dt><dd>Agence de communication de proximité : activation terrain (marketing BTL), événementiel institutionnel, scénographie institutionnelle, branding événementiel, audiovisuel et impression de supports</dd>
+        <dt>Basée à</dt><dd>Conakry, Guinée</dd>
+        <dt>Intervient</dt><dd>À Conakry et partout en Guinée</dd>
+        <dt>Pour qui</dt><dd>Marques et entreprises, institutions et administrations, ONG, porteurs de projets</dd>
+        <dt>Devis</dt><dd>Détaillé en GNF, poste par poste</dd>
+        <dt>Contact</dt><dd><a href="tel:+224628812903">+224 628 81 29 03</a> (appel et WhatsApp) · <a href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></dd>
+        <dt>Site</dt><dd>kafalisgroup.com</dd>
+      </dl>
+    </div>
+  </section>
   <section class="band navy">
     <div class="wrap">
       <p class="mission-q">Notre travail : rendre les marques visibles là où leurs clients vivent et achètent, et livrer chaque projet comme prévu.</p>
@@ -717,6 +829,8 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
             <input type="radio" name="besoin" id="b1" value="Activation terrain" checked><label for="b1">Activation terrain</label>
             <input type="radio" name="besoin" id="b2" value="Événement"><label for="b2">Événement</label>
             <input type="radio" name="besoin" id="b3" value="Impression et supports"><label for="b3">Impression et supports</label>
+            <input type="radio" name="besoin" id="b5" value="Scénographie institutionnelle"><label for="b5">Scénographie</label>
+            <input type="radio" name="besoin" id="b6" value="Photo et vidéo"><label for="b6">Photo et vidéo</label>
             <input type="radio" name="besoin" id="b4" value="Plusieurs services"><label for="b4">Plusieurs services</label>
           </div>
         </fieldset>
@@ -860,8 +974,8 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
 <footer>
   <div class="wrap">
     <div class="grid">
-      <div>__LOGO__<p class="tag">Agence guinéenne de communication de proximité. Activation terrain, événementiel, impression.</p></div>
-      <div><h4>Métiers</h4><ul><li><a href="#activation">Activation terrain</a></li><li><a href="#evenementiel">Événementiel</a></li><li><a href="#impression">Impression et supports</a></li></ul></div>
+      <div>__LOGO__<p class="tag">Agence guinéenne de communication de proximité, à Conakry. Activation terrain, événementiel, scénographie institutionnelle, audiovisuel, impression.</p></div>
+      <div><h4>Métiers</h4><ul><li><a href="#activation">Activation terrain</a></li><li><a href="#evenementiel">Événementiel</a></li><li><a href="#impression">Impression et supports</a></li><li><a href="#scenographie">Scénographie institutionnelle</a></li><li><a href="#audiovisuel">Audiovisuel</a></li></ul></div>
       <div><h4>Agence</h4><ul><li><a href="#agence">L’agence</a></li><li><a href="#realisations">Réalisations</a></li><li><a href="#lacadence">La Cadence, notre lettre</a></li><li><a href="#contact">Demander un devis</a></li></ul></div>
       <div><h4>Contact</h4><ul><li><a href="mailto:contact@kafalisgroup.com">contact@kafalisgroup.com</a></li><li><a href="tel:+224628812903">+224 628 81 29 03</a></li><li><a href="https://wa.me/224628812903" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="https://www.facebook.com/1420392747823939" target="_blank" rel="noopener">Facebook</a></li><li>Conakry, Guinée</li></ul></div>
     </div>
@@ -876,8 +990,8 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
   // Numéro WhatsApp au format international sans « + » ni espaces, ex. "224620000000". Vide = WhatsApp masqué.
   var WHATSAPP = "224628812903";
   var EMAIL = "contact@kafalisgroup.com";
-  var VIEWS = ["accueil", "activation", "evenementiel", "impression", "agence", "realisations", "lacadence", "contact"];
-  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain | Kafalis Group", evenementiel: "Événementiel | Kafalis Group", impression: "Impression et supports | Kafalis Group", agence: "L’agence | Kafalis Group", lacadence: "La Cadence | Kafalis Group", realisations: "Réalisations | Kafalis Group", contact: "Contact | Kafalis Group" };
+  var VIEWS = ["accueil", "activation", "evenementiel", "impression", "scenographie", "audiovisuel", "agence", "realisations", "lacadence", "contact"];
+  var TITLES = { accueil: "Kafalis Group", activation: "Activation terrain | Kafalis Group", evenementiel: "Événementiel | Kafalis Group", impression: "Impression et supports | Kafalis Group", scenographie: "Scénographie institutionnelle | Kafalis Group", audiovisuel: "Audiovisuel | Kafalis Group", agence: "L’agence | Kafalis Group", lacadence: "La Cadence | Kafalis Group", realisations: "Réalisations | Kafalis Group", contact: "Contact | Kafalis Group" };
   var root = document.documentElement;
   var top = document.getElementById("top");
   var burger = document.getElementById("burger");
@@ -931,7 +1045,7 @@ footer .legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(-
     show(location.hash.slice(1), false);
   } else {
     // Anciennes adresses du site en une page (ex. /#agence) : renvoi vers la vraie page
-    var OLD = { activation: "/activation-terrain/", evenementiel: "/evenementiel/", impression: "/impression/", agence: "/agence/", lacadence: "/la-cadence/", realisations: "/realisations/", contact: "/contact/" };
+    var OLD = { activation: "/activation-terrain/", evenementiel: "/evenementiel/", impression: "/impression/", scenographie: "/scenographie-institutionnelle/", audiovisuel: "/audiovisuel/", agence: "/agence/", lacadence: "/la-cadence/", realisations: "/realisations/", contact: "/contact/" };
     var h = location.hash.slice(1);
     if (OLD[h] && location.pathname === "/") { location.replace(OLD[h]); return; }
     // Site en plusieurs pages : le besoin arrive par l’adresse, ex. /contact/?besoin=Événement

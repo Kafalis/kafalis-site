@@ -1,4 +1,26 @@
+# Kafalis Group : tous les robots, y compris les assistants IA, sont les bienvenus.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+User-agent: CCBot
+Allow: /
+Disallow: /sources/
+
 User-agent: *
 Allow: /
+Disallow: /sources/
 
 Sitemap: https://kafalisgroup.com/sitemap.xml
